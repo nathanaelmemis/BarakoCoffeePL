@@ -13,7 +13,7 @@ public class SymbolTable {
     public static void main(String[] args) {
 
         try {
-            File file = new File("D:\\YO YO YO\\test.txt");// file here
+            File file = new File("src\\main\\java\\barakocoffee\\test.txt");// file here
             FileReader fread = new FileReader(file);
             BufferedReader bf = new BufferedReader(fread);
             System.out.println(

@@ -1,0 +1,9 @@
+int jet (float float1, int int1)
+short short1=200;
+int int2=300;
+long long1=400L; 
+float float2=3.14f;
+double double1=6.28;
+char char1='A';
+boolean boolean1=true;
+String name="Jethro";
