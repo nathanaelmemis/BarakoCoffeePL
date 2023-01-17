@@ -1,4 +1,4 @@
-package lexicalAnalyzer;
+package barakocoffee.LexicalAnalyzer;
 
 import java.util.Scanner;
 
