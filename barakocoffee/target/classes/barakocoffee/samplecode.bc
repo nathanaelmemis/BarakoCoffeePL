@@ -1,0 +1,9 @@
+//
+// test comment
+int i = 0; // this is a comment
+class TestClass {
+
+}
+/* this is a block comment */ String a = "meow"; /*test block comment*/
+String anotherString = "arf";
+/**/
