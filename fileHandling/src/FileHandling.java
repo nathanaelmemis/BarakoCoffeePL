@@ -129,6 +129,7 @@ public class FileHandling {
                               System.exit(0);
                         }else{
                               OpenFile(myFile);
+                              System.out.println(" \n");
                               System.exit(0);
                         }
                 }
