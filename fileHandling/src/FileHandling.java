@@ -10,7 +10,7 @@ public class FileHandling {
         File myObj = new File(myFile);
         try{
             Scanner myReader = new Scanner(myObj);
-            System.out.println("=======File COntent====");
+            System.out.println("======= File COntent ====");
             while (myReader.hasNextLine()){
                 String data = myReader.nextLine();
                 System.out.println(data);
@@ -86,7 +86,7 @@ public class FileHandling {
             { 
                 System.out.println(" BARAKO COFFEE ");
                 System.out.println(" [C] CREATE AND WRITE CODE ");
-                System.out.println(" [R] RUN ");
+                System.out.println(" [R] READ ");
                 System.out.println(" [E] EXIT ");      
                 System.out.print(" Enter your Choice: ");
                 String Choice = sc.nextLine();
@@ -121,7 +121,7 @@ public class FileHandling {
                 case "R" :
                 case "r" :{
                   Scanner cs = new Scanner(System.in);
-                  System.out.print("Choose File to Execute: ");
+                  System.out.print("Choose File to Read: ");
                   String myFile = cs.next();
                         if(!myFile.endsWith(".bc")) {
                               System.out.println("Error: Invalid file extension. File must be a .bc extension.");
