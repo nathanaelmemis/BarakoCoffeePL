@@ -10,14 +10,16 @@ public class FileHandling {
         File myObj = new File(myFile);
         try{
             Scanner myReader = new Scanner(myObj);
-            System.out.println("======= File COntent ====");
+            System.out.println("-------------------------- FILE CONTENT --------------------------------\n");
+            System.out.println("------------------------------------------------------------------------\n");
             while (myReader.hasNextLine()){
                 String data = myReader.nextLine();
                 System.out.println(data);
+                System.out.println(" \n");
             }
         }catch(FileNotFoundException e)
         {
-            System.out.println("File not found");
+            System.out.println("\nFile not found\n");
         }
     }
     
@@ -82,9 +84,8 @@ public class FileHandling {
           Scanner sc = new Scanner(System.in);
           String Ans;
           
-           do
-            { 
-                System.out.println(" BARAKO COFFEE ");
+           do{ 
+                System.out.println("\n______BARAKO COFFEE_______ \n");
                 System.out.println(" [C] CREATE AND WRITE CODE ");
                 System.out.println(" [R] READ ");
                 System.out.println(" [E] EXIT ");      
@@ -96,15 +97,15 @@ public class FileHandling {
                 case "C" :
                 case "c" :{
 
-                  System.out.print("create New File: ");
+                  System.out.print(" \nCreate New File: ");
                   String newFile = sc.next();
                   // Validate the file extension of the file name
                         if(!newFile.endsWith(".bc")) {
-                                System.out.println("Error: Invalid file extension. File must be a .bc extension.");
+                                System.out.println("\nError: Invalid file extension. File must be a .bc extension.\n");
                         }
                         else{
                             CreateFile(newFile);
-                            System.out.print("Enter Code: ");
+                            System.out.print(" \nEnter Code: ");
                             sc.nextLine();
                             String code = sc.nextLine();
                             WriteFile(newFile, code);
@@ -121,10 +122,10 @@ public class FileHandling {
                 case "R" :
                 case "r" :{
                   Scanner cs = new Scanner(System.in);
-                  System.out.print("Choose File to Read: ");
+                  System.out.print(" \nChoose File to Read: ");
                   String myFile = cs.next();
                         if(!myFile.endsWith(".bc")) {
-                              System.out.println("Error: Invalid file extension. File must be a .bc extension.");
+                              System.out.println("\nError: Invalid file extension. File must be a .bc extension.\n");
                               System.exit(0);
                         }else{
                               OpenFile(myFile);
@@ -133,11 +134,11 @@ public class FileHandling {
                 }
                  break;
                  case "E":{
-                       System.out.println(" GOODBYE AND THANK YOU FOR USING BARAKO COFFEE ");
+                       System.out.println(" \nTHANK YOU FOR USING BARAKO COFFEE\n ");
                        System.exit(0);
                     }
                 default:
-                        System.out.println(" INVALID INPUT ");
+                        System.out.println("\n WARNING: INVALID INPUT \n");
                 }
             System.out.print("\n");
             Ans = sc.nextLine();
