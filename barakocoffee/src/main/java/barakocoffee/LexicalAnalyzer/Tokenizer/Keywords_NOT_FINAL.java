@@ -1,22 +1,22 @@
-package barakocoffee.LexicalAnalyzer;
+package barakocoffee.LexicalAnalyzer.Tokenizer;
 
 import java.util.Scanner;
 
-public class Keywords {
+public class Keywords_NOT_FINAL {
 
-	private String[] keywords = { "bago", "new", "boolean", "defecto", "default", "doble", "double",
-			"ent", "int", "kar", "char", "eks", "exp", "kar", "char", "kundi",
-			"else", "kung", "if", "kuwerdas", "string", "lobo", "float", "para",
-			"for", "protektado", "protected", "pribado", "private", "pinal", "final",
-			"publiko", "public", "putol", "break", "klase", "class", "pinahaba",
-			"extends", "ito", "this", "pasok", "scan", "labas", "print", "tulong",
-			"help", "arrayParser" };
+	private String[] keywords = {"bago", "new", "boolean", "defecto", "default", "doble", "double",
+								"ent", "int", "kar", "char", "eks", "exp", "kar", "char", "kundi",
+								"else", "kung", "if", "kuwerdas", "string", "lobo", "float", "para",
+								"for", "protektado", "protected", "pribado", "private", "pinal", "final",
+								"publiko", "public", "putol", "break", "klase", "class", "pinahaba",
+								"extends", "ito", "this", "pasok", "scan", "labas", "print", "tulong",
+								"help", "arrayParser"};
 
 	private String[] reservedWords = { "mali", "false", "prinsipal", "main", "tuloy", "continue", "tama", "true" };
 
 	public static void main(String[] args) {
 
-		Keywords kw = new Keywords();
+		Keywords_NOT_FINAL kw = new Keywords_NOT_FINAL();
 		Scanner a = new Scanner(System.in);
 		String input;
 		do {

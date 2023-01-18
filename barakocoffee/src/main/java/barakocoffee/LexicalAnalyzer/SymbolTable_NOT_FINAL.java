@@ -4,7 +4,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 
-public class SymbolTable {
+public class SymbolTable_NOT_FINAL {
 
     static String currentLine;
     static String[] arr;

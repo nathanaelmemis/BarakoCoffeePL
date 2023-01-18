@@ -1,9 +1,4 @@
-//
-// test comment
-int i = 0; // this is a comment
-class TestClass {
-
-}
-/* this is a block comment */ String a = "meow"; /*test block comment*/
-String anotherString = "arf";
-/**/
+String test = "I am a string literal"; /*
+I should be a block comment
+*/
+int a = 10;
