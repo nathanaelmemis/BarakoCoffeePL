@@ -9,6 +9,6 @@ public class BarakoCoffee
     public static void main(String[] args) throws FileNotFoundException
     {
         LexicalAnalyzer lexicalAnalyzer = new LexicalAnalyzer();
-        lexicalAnalyzer.scan("src\\main\\java\\barakocoffee\\samplecode.bc");
+        lexicalAnalyzer.scan(args[0]);
     }
 }

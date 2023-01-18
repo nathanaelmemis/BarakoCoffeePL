@@ -17,7 +17,7 @@ public class LexicalAnalyzer {
         SymbolTable symbolTable = new SymbolTable();
         String code = "";
 
-        // Lexer
+        // Removing of Line Comments and Block Comments
         while (scanner.hasNextLine()) {
             lexeme = lexer.removeLineComment(scanner.nextLine());
             code += lexeme.lexeme;
@@ -33,7 +33,7 @@ public class LexicalAnalyzer {
             System.exit(1);
         }
 
-        // Tokenizer
+        // Tokenization
         for (int index = 0, lastIndex = 0; index < code.length(); lastIndex = index) {
             try {
                 index = lexer.nextToken(code, index);
