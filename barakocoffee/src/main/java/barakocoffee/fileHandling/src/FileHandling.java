@@ -7,6 +7,7 @@ import java.util.Scanner;
 
 public class FileHandling {
 
+    //open file
     public static void OpenFile(String myFile) throws FileNotFoundException {
         File myObj = new File(myFile);
         try {
@@ -23,6 +24,7 @@ public class FileHandling {
         }
     }
 
+    //creates file
     public static void CreateFile(String newFile) {
         try {
             File myobj = new File(newFile);
@@ -36,6 +38,7 @@ public class FileHandling {
         }
     }
 
+    //write on file
     public static void WriteFile(String FileName, String code) {
         try {
             FileWriter myobj = new FileWriter(FileName);
@@ -62,10 +65,12 @@ public class FileHandling {
     // }
     //
     // }
+
+    //Validate File Extension
     public static void validateExtension(String FileName) {
         // get the file extension
         String fileExt = FileName.substring(FileName.lastIndexOf(".") + 1);
-        // if the file extension is .txt or .doc, return true
+        // if the file extension is .bc, return true
         if (fileExt.equals("bc") || fileExt.equals("BC")) {
             System.out.println("Valid File type");
         } else {
