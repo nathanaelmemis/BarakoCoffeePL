@@ -1,6 +1,8 @@
-package barakocoffee.LexicalAnalyzer.Tokenizer;
+package barakocoffee.LexicalAnalyzer;
 
 import java.util.ArrayList;
+
+import barakocoffee.LexicalAnalyzer.Lexer.Token;
 
 public class SymbolTable {
     private ArrayList<Token> symbolTable = new ArrayList<Token>();
@@ -19,7 +21,7 @@ public class SymbolTable {
         }
     }
 
-    public void printCode() {
+    public void printLexemes() {
         System.out.print("CODE: ");
         for (int i = 0; i < symbolTable.size(); i++) {
             System.out.print(symbolTable.get(i).getLexeme() + " ");

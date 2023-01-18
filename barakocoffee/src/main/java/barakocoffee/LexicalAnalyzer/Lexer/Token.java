@@ -1,4 +1,4 @@
-package barakocoffee.LexicalAnalyzer.Tokenizer;
+package barakocoffee.LexicalAnalyzer.Lexer;
 
 public class Token {
     private String lexeme;

@@ -6,17 +6,14 @@ import java.util.Scanner;
 
 import barakocoffee.LexicalAnalyzer.Lexer.Lexeme;
 import barakocoffee.LexicalAnalyzer.Lexer.Lexer;
-import barakocoffee.LexicalAnalyzer.Lexer.MissingEndBlockCommentException;
-import barakocoffee.LexicalAnalyzer.Lexer.MissingStartBlockCommentException;
-import barakocoffee.LexicalAnalyzer.Tokenizer.SymbolTable;
-import barakocoffee.LexicalAnalyzer.Tokenizer.Tokenizer;
+import barakocoffee.LexicalAnalyzer.Lexer.Exceptions.MissingEndBlockCommentException;
+import barakocoffee.LexicalAnalyzer.Lexer.Exceptions.MissingStartBlockCommentException;
 
 public class LexicalAnalyzer {
     public void scan(String file) throws FileNotFoundException {
         Scanner scanner = new Scanner(new FileInputStream(file));
         Lexer lexer = new Lexer();
         Lexeme lexeme;
-        Tokenizer tokenizer = new Tokenizer();
         SymbolTable symbolTable = new SymbolTable();
         String code = "";
 
@@ -39,7 +36,7 @@ public class LexicalAnalyzer {
         // Tokenizer
         for (int index = 0, lastIndex = 0; index < code.length(); lastIndex = index) {
             try {
-                index = tokenizer.nextToken(code, index);
+                index = lexer.nextToken(code, index);
             } catch (Exception e) {
                 System.out.println("A quotation mark was not closed!");
                 System.exit(1);
@@ -52,14 +49,14 @@ public class LexicalAnalyzer {
                 index++;
             }
             try {
-                symbolTable.add(tokenizer.identifyToken(code.substring(lastIndex, index)));
+                symbolTable.add(lexer.identifyToken(code.substring(lastIndex, index)));
             } catch (Exception e) {
                 System.out.println(e.getMessage() + " is an Invalid Token!");
                 System.exit(1);
             }
         }
 
-        symbolTable.printCode();
+        symbolTable.printLexemes();
         symbolTable.printSymbolTable();
     }
 }

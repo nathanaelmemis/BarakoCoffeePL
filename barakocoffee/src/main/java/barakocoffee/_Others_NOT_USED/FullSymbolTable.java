@@ -1,10 +1,10 @@
-package barakocoffee.LexicalAnalyzer;
+package barakocoffee._Others_NOT_USED;
 
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 
-public class SymbolTable_NOT_FINAL {
+public class FullSymbolTable {
 
     static String currentLine;
     static String[] arr;

@@ -1,4 +1,4 @@
-package barakocoffee.LexicalAnalyzer.Lexer;
+package barakocoffee.LexicalAnalyzer.Lexer.Exceptions;
 
 public class MissingEndBlockCommentException extends Exception  
 {  
