@@ -10,7 +10,7 @@ import barakocoffee.LexicalAnalyzer.Lexer.Exceptions.MissingEndBlockCommentExcep
 import barakocoffee.LexicalAnalyzer.Lexer.Exceptions.MissingStartBlockCommentException;
 
 public class LexicalAnalyzer {
-    public void scan(String file) throws FileNotFoundException {
+    public SymbolTable scan(String file) throws FileNotFoundException {
         Scanner scanner = new Scanner(new FileInputStream(file));
         Lexer lexer = new Lexer();
         Lexeme lexeme;
@@ -56,7 +56,6 @@ public class LexicalAnalyzer {
             }
         }
 
-        symbolTable.printLexemes();
-        symbolTable.printSymbolTable();
+        return symbolTable;
     }
 }

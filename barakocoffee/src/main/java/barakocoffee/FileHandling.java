@@ -53,19 +53,6 @@ public class FileHandling {
 
     }
 
-    // public static void DeleteFile(String FileName)
-    // {
-    //
-    // File myobj = new File(FileName);
-    // if(myobj.delete()){
-    // System.out.println("File Deleted Successfully!");
-    // }
-    // else {
-    // System.out.println("Failed to Delete the File!");
-    // }
-    //
-    // }
-
     //Validate File Extension
     public static void validateExtension(String FileName) {
         // get the file extension
@@ -105,7 +92,6 @@ public class FileHandling {
                         sc.nextLine();
                         String code = sc.nextLine();
                         WriteFile(newFile, code);
-                        System.exit(0);
                     }
 
                 }
@@ -131,7 +117,6 @@ public class FileHandling {
                     break;
                 case "E": {
                     System.out.println(" \nTHANK YOU FOR USING BARAKO COFFEE\n ");
-                    System.exit(0);
                 }
                 default:
                     System.out.println("\n WARNING: INVALID INPUT \n");

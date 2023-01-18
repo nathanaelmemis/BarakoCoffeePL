@@ -1,0 +1,16 @@
+CODE: String test = "I am a string literal" ; int a = 10 ; Boolean b = true ; 
+IDENTIFIER : String
+IDENTIFIER : test
+OPERATOR : =
+STRING_LITERAL : "I am a string literal"
+SEPARATOR : ;
+KEYWORD : int
+IDENTIFIER : a
+OPERATOR : =
+INTEGER_LITERAL : 10
+SEPARATOR : ;
+IDENTIFIER : Boolean
+IDENTIFIER : b
+OPERATOR : =
+BOOLEAN_LITERAL : true
+SEPARATOR : ;

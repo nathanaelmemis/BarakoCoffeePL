@@ -13,10 +13,11 @@ public class Lexer {
 								"publiko", "public", "putol", "break", "klase", "class", "pinahaba",
 								"extends", "ito", "this", "pasok", "scan", "labas", "print", "tulong",
 								"help", "arrayParser"};
-	private String[] reservedWords = {"mali", "false", "prinsipal", "main", "tuloy", "continue", "tama", "true"};
+	private String[] reservedWords = {"prinsipal", "main", "tuloy", "continue"};
     private String[] operators = {"+","-","*","/","=","%","~","^","++","--","+=","-=","*=","/=","==","%=","~=",
                                 "^=","<",">","!","<=",">=","!=","||","&&"};
     private String[] separators = {",","{","}",";"};
+    // ADD BOOLEAN_LITERAL
 
     public Lexeme removeLineComment(String lineOfcode) {
         for (int i = 1; i < lineOfcode.length(); i++) {
@@ -107,6 +108,9 @@ public class Lexer {
             if (token.equals(separator)) {
                 return new Token(token, "SEPARATOR");
             }
+        }
+        if (token.matches("true|false")) {
+            return new Token(token, "BOOLEAN_LITERAL");
         }
         if (token.matches("_*[a-zA-Z_]+[a-zA-Z0-9_]*")) {
             return new Token(token, "IDENTIFIER");
