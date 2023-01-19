@@ -16,7 +16,7 @@ public class Lexer {
 	private String[] reservedWords = {"prinsipal", "main", "tuloy", "continue"};
     private String[] operators = {"+","-","*","/","=","%","~","^","++","--","+=","-=","*=","/=","==","%=","~=",
                                 "^=","<",">","!","<=",">=","!=","||","&&"};
-    private String[] separators = {",","{","}",";"};
+    private String[] separators = {",","{","}",";","[","]","(",")"};
     // ADD BOOLEAN_LITERAL
 
     public Lexeme removeLineComment(String lineOfcode) {
@@ -52,27 +52,34 @@ public class Lexer {
     }
 
     public int nextToken(String code, int index) throws MissingEndQuotationMarkException {
-        for (; index < code.length(); index++) {
-            // regex for identifiers
-            if (code.substring(index, index + 1).matches("[a-zA-Z0-9_]")) { 
-                continue;
-            }
-            // regex for operations with two characters such as +=, ==, <=, ++, ||, etc.
-            if (code.substring(index, index + 2 < code.length() ? index + 2 : index + 1).matches("[+-[*]/%~^=<>!]=|[+]{2}|--|[|]{2}|[&]{2}")) {
-                return index + 2;
-            }
-            // regex for operations with one character such as +, -, ~, =, >, etc.
-            if (code.substring(index, index + 1).matches("[+-[*]/~^<>=![{][}]]")) { 
-                return index +1;
-            }
-            // add a method that will get the whole String Literal such as "I am a String Literal"
-            if (code.charAt(index) == '\"') {
-                return nextStringLiteral(code, index + 1);
-            }
-
-            return index;
+        // regex for identifiers, keywords, reserved words
+        if (code.substring(index, index + 1).matches("[a-zA-Z0-9_]")) { 
+            return nextIndentifier(code, index + 1);
         }
-        return 0;
+        // regex for operations with two characters such as +=, ==, <=, ++, ||, etc.
+        if (code.substring(index, index + 2 < code.length() ? index + 2 : index + 1).matches("[+-[*]/%~^=<>!]=|[+]{2}|--|[|]{2}|[&]{2}")) {
+            return index + 2;
+        }
+        // regex for operators and separators
+        if (code.substring(index, index + 1).matches("[+-[*]/~^<>=!()[{][}]];")) { 
+            return index +1;
+        }
+        // add a method that will get the whole String Literal such as "I am a String Literal"
+        if (code.charAt(index) == '\"') {
+            return nextStringLiteral(code, index + 1);
+        }
+
+        return index + 1;
+    }
+
+    public int nextIndentifier(String code, int index) throws MissingEndQuotationMarkException {
+        for (; index < code.length(); index++) {
+            if (code.substring(index, index + 1).matches("[^a-zA-Z0-9_]")) {
+                return index;
+            }
+        }
+
+        throw new MissingEndQuotationMarkException();
     }
 
     public int nextStringLiteral(String code, int index) throws MissingEndQuotationMarkException {

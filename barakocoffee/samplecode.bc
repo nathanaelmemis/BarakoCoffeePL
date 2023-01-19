@@ -1,5 +1,0 @@
-String test = "I am a string literal"; /*
-I should be a block comment
-*/
-int a = 10; // test comment
-Boolean b = true;

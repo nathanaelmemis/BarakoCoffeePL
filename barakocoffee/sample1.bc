@@ -1,0 +1,13 @@
+/* This is a sample code for BarakoCoffee Lexical Analyzer */
+
+public class Cat {
+    // this method allows the cat to make a sound
+    public void talk() {
+        print("meow");
+    }
+
+    // this method allows the cat to walk
+    public void walk(int meters) {
+        print("The cat walked " + meters + " meters");
+    }
+}

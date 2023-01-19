@@ -6,7 +6,9 @@ import java.util.Scanner;
 
 import barakocoffee.LexicalAnalyzer.Lexer.Lexeme;
 import barakocoffee.LexicalAnalyzer.Lexer.Lexer;
+import barakocoffee.LexicalAnalyzer.Lexer.Exceptions.InvalidTokenException;
 import barakocoffee.LexicalAnalyzer.Lexer.Exceptions.MissingEndBlockCommentException;
+import barakocoffee.LexicalAnalyzer.Lexer.Exceptions.MissingEndQuotationMarkException;
 import barakocoffee.LexicalAnalyzer.Lexer.Exceptions.MissingStartBlockCommentException;
 
 public class LexicalAnalyzer {
@@ -37,20 +39,16 @@ public class LexicalAnalyzer {
         for (int index = 0, lastIndex = 0; index < code.length(); lastIndex = index) {
             try {
                 index = lexer.nextToken(code, index);
-            } catch (Exception e) {
+            } catch (MissingEndQuotationMarkException e) {
                 System.out.println("A quotation mark was not closed!");
                 System.exit(1);
             }
-            if (code.substring(lastIndex, index + 1).equals(" ")) {
-                index++;
+            if (code.substring(lastIndex, index).equals(" ")) {
                 continue;
-            }
-            if (code.substring(lastIndex, index + 1).equals(";")) {
-                index++;
             }
             try {
                 symbolTable.add(lexer.identifyToken(code.substring(lastIndex, index)));
-            } catch (Exception e) {
+            } catch (InvalidTokenException e) {
                 System.out.println(e.getMessage() + " is an Invalid Token!");
                 System.exit(1);
             }
