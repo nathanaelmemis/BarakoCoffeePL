@@ -44,7 +44,7 @@ public class SymbolTable {
     public void printSymbolTable(String file, Boolean append) throws IOException {
         FileWriter fileWriter = new FileWriter(file, append);
         for (int i = 0; i < symbolTable.size(); i++) {
-            fileWriter.write(symbolTable.get(i).getType() + " : " + symbolTable.get(i).getLexeme() + "\n");
+            fileWriter.write(String.format("%-" + 14 + "s" ,symbolTable.get(i).getType()) + " : " + symbolTable.get(i).getLexeme() + "\n");
         }
         fileWriter.close();
     }

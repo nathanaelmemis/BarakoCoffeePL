@@ -1,0 +1,13 @@
+/* This is a sample code for BarakoCoffee Lexical Analyzer with tagalog keywords*/
+
+publiko klase Cat {
+    // this method allows the cat to make a sound
+    publiko void talk() {
+        labas("meow");
+    }
+
+    // this method allows the cat to walk
+    publiko void walk(ent meters) {
+        labas("The cat walked " + meters + " meters");
+    }
+}
