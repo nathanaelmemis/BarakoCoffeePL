@@ -1,6 +1,16 @@
 /* This is a sample code for BarakoCoffee Lexical Analyzer */
 
 public class Cat {
+    private string name;
+
+    public void setName(string name) {
+        this.name = name;
+    }
+
+    public string getName() {
+        return name;
+    }
+
     // this method allows the cat to make a sound
     public void talk() {
         print("meow");

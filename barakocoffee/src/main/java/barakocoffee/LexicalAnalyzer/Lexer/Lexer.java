@@ -16,7 +16,7 @@ public class Lexer {
 	private String[] reservedWords = {"prinsipal", "main", "tuloy", "continue"};
     private String[] operators = {"+","-","*","/","=","%","~","^","++","--","+=","-=","*=","/=","==","%=","~=",
                                 "^=","<",">","!","<=",">=","!=","||","&&"};
-    private String[] separators = {",","{","}",";","[","]","(",")"};
+    private String[] separators = {",","{","}",";","[","]","(",")","."};
     // ADD BOOLEAN_LITERAL
 
     public Lexeme removeLineComment(String lineOfcode) {
@@ -61,7 +61,7 @@ public class Lexer {
             return index + 2;
         }
         // regex for operators and separators
-        if (code.substring(index, index + 1).matches("[+-[*]/~^<>=!()[{][}]];")) { 
+        if (code.substring(index, index + 1).matches("[+-[*]/~^<>=!()[{][}]];.")) { 
             return index +1;
         }
         // add a method that will get the whole String Literal such as "I am a String Literal"

@@ -1,6 +1,16 @@
 /* This is a sample code for BarakoCoffee Lexical Analyzer with tagalog keywords*/
 
 publiko klase Cat {
+    pribado name;
+
+    publiko void setName(kuwerdas name) {
+        this.name = name;
+    }
+
+    publiko kuwerdas getName() {
+        return name;
+    }
+
     // this method allows the cat to make a sound
     publiko void talk() {
         labas("meow");
