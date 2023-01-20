@@ -4,7 +4,7 @@ public class Token {
     private String lexeme;
     private String type;
 
-    Token (String lexeme, String type) {
+    public Token (String lexeme, String type) {
         this.lexeme = lexeme;
         this.type = type;
     }

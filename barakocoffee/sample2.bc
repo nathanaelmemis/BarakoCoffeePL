@@ -4,7 +4,7 @@ publiko klase Cat {
     pribado name;
 
     publiko void setName(kuwerdas name) {
-        this.name = name;
+        ito.name = name;
     }
 
     publiko kuwerdas getName() {

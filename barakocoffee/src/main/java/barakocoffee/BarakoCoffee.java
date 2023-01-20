@@ -12,8 +12,8 @@ public class BarakoCoffee {
     public static void main(String[] args) throws IOException {
         BarakoCoffee barakoCoffee = new BarakoCoffee();
         
-        if (args.length > 0) {
-            barakoCoffee.commandLineCompile(args);
+        if (args.length == 0) {
+            barakoCoffee.commandLineCompile(new String[]{"samplecode.bc", "test.txt"});
             return;
         }
 
