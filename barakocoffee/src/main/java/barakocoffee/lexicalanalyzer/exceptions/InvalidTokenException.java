@@ -1,4 +1,4 @@
-package barakocoffee.LexicalAnalyzer.Lexer.Exceptions;
+package barakocoffee.lexicalanalyzer.exceptions;
 
 public class InvalidTokenException extends Exception {
     public InvalidTokenException(String message) {

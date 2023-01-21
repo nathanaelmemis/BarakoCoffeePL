@@ -1,12 +1,7 @@
 package barakocoffee;
 
-class Main {
+public class test {
     public static void main(String[] args) {
-        System.out.println("++".matches("[[+]-[*]/~^<>=!]=|[+]{2}|--|[|]{2}|[&]{2}"));
-
+        System.out.println("_klasdhfksja___cnr93yrc93y9r83y4_KEYWORDasd".matches(".*_KEYWORD"));
     }
-}
-
-class Test {
-
 }
