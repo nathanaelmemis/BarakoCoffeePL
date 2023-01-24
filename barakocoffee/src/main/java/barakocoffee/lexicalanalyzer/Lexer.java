@@ -101,9 +101,35 @@ public class Lexer {
                     lexeme += code.substring(index, index + 1);
                 }
                 if (tokenHashMap.isToken(lexeme.substring(0, lexeme.length() - 1))) {
-                    symbolTable.add(new Token(lexeme.substring(0, lexeme.length() - 1), tokenHashMap.getType(lexeme.substring(0, lexeme.length() - 1))));
+                    // checks if keyword is used as identifier then label as RESERVED_WORD
+                    if (symbolTable.getSymbolTable().size() < 1) {
+                        symbolTable.add(new Token(lexeme.substring(0, lexeme.length() - 1), tokenHashMap.getType(lexeme.substring(0, lexeme.length() - 1))));
+                    } else {
+                        String symbol = symbolTable.getSymbolTable().get(symbolTable.getSymbolTable().size() - 1).getType();
+                        if (symbol.equals("ENT_KEYWORD")
+                        || symbol.equals("INT_KEYWORD")
+                        || symbol.equals("KAR_KEYWORD")
+                        || symbol.equals("CHAR_KEYWORD")
+                        || symbol.equals("BOOLEAN_KEYWORD")
+                        || symbol.equals("STRING_KEYWORD")
+                        || symbol.equals("LOBO_KEYWORD")
+                        || symbol.equals("FLOAT_KEYWORD")
+                        || symbol.equals("KLASE_KEYWORD")
+                        || symbol.equals("CLASS_KEYWORD")
+                        || symbol.equals("STRUCT_KEYWORD")) {
+                            symbolTable.add(new Token(lexeme.substring(0, lexeme.length() - 1), "RESERVED_WORD"));
+                        } else {
+                            symbolTable.add(new Token(lexeme.substring(0, lexeme.length() - 1), tokenHashMap.getType(lexeme.substring(0, lexeme.length() - 1))));
+                        }
+                    }
                 } else {
-                    symbolTable.add(new Token(lexeme.substring(0, lexeme.length() - 1), "IDENTIFIER"));
+                    // checks if an identifier is a constant
+                    if (symbolTable.getSymbolTable().size() < 2) {
+                        symbolTable.add(new Token(lexeme.substring(0, lexeme.length() - 1), "IDENTIFIER"));
+                    } else if (symbolTable.getSymbolTable().get(symbolTable.getSymbolTable().size() - 2).getType().equals("FINAL_KEYWORD")
+                    || symbolTable.getSymbolTable().get(symbolTable.getSymbolTable().size() - 2).getType().equals("PINAL_KEYWORD")) {
+                        symbolTable.add(new Token(lexeme.substring(0, lexeme.length() - 1), "CONSTANT"));
+                    }
                 }
                 lexeme = "";
                 index--;
@@ -136,27 +162,6 @@ public class Lexer {
                 System.exit(1);
             }
             
-        }
-
-        // check if a reserved word was used as identifier
-        for (int i = 1; i < symbolTable.getSymbolTable().size(); i++) {
-            String symbol = symbolTable.getSymbolTable().get(i - 1).getType();
-            if (symbol.equals("ENT_KEYWORD")
-                || symbol.equals("INT_KEYWORD")
-                || symbol.equals("KAR_KEYWORD")
-                || symbol.equals("CHAR_KEYWORD")
-                || symbol.equals("BOOLEAN_KEYWORD")
-                || symbol.equals("STRING_KEYWORD")
-                || symbol.equals("LOBO_KEYWORD")
-                || symbol.equals("FLOAT_KEYWORD")
-                || symbol.equals("KLASE_KEYWORD")
-                || symbol.equals("CLASS_KEYWORD")
-                || symbol.equals("STRUCT_KEYWORD")) {
-                if (symbolTable.getSymbolTable().get(i).getType().matches(".*_KEYWORD")) {
-                    System.out.println("Error: Invalid Identifier Is Reserved Word: " + symbolTable.getSymbolTable().get(i).getLexeme());
-                    System.exit(1);
-                }
-            }
         }
 
         return symbolTable;

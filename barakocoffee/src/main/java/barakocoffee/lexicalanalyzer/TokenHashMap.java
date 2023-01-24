@@ -51,6 +51,8 @@ public class TokenHashMap {
         lexemes.put("help", "HELP_KEYWORD");
         lexemes.put("struct", "STRUCT_KEYWORD");
         lexemes.put("void", "VOID_KEYWORD");
+        lexemes.put("return", "RETURN_KEYWORD");
+        lexemes.put("ibalik", "IBALIK_KEYWORD");
 
         // reserved words
         lexemes.put("prinsipal", "PRINSIPAL_RESERVED_WORD");
