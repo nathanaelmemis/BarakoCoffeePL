@@ -8,7 +8,6 @@ public class TokenHashMap {
     TokenHashMap() {
         // keywords
         lexemes.put("boolean", "BOOLEAN_KEYWORD");
-        lexemes.put("defecto", "DEFECTO_KEYWORD");
         lexemes.put("default", "DEFAULT_KEYWORD");
         lexemes.put("doble", "DOBLE_KEYWORD");
         lexemes.put("double", "DOUBLE_KEYWORD");
@@ -53,6 +52,8 @@ public class TokenHashMap {
         lexemes.put("void", "VOID_KEYWORD");
         lexemes.put("return", "RETURN_KEYWORD");
         lexemes.put("ibalik", "IBALIK_KEYWORD");
+        lexemes.put("static", "STATIC_KEYWORD");
+        lexemes.put("estatika", "ESTATIKA_KEYWORD");
 
         // reserved words
         lexemes.put("prinsipal", "PRINSIPAL_RESERVED_WORD");

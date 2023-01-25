@@ -114,6 +114,7 @@ public class Lexer {
                         || symbol.equals("STRING_KEYWORD")
                         || symbol.equals("LOBO_KEYWORD")
                         || symbol.equals("FLOAT_KEYWORD")
+                        || symbol.equals("VOID_KEYWORD")
                         || symbol.equals("KLASE_KEYWORD")
                         || symbol.equals("CLASS_KEYWORD")
                         || symbol.equals("STRUCT_KEYWORD")) {
@@ -138,13 +139,13 @@ public class Lexer {
             }
 
             // operators
-            else if (lexeme.matches("[[+]-[*]/~^<>=!()[{][}]\\[\\];.[|][&]]")) {
+            else if (lexeme.matches("[[+]-[*]/~^%<>=!()[{][}]\\[\\];.[|][&]]")) {
                 if (index + 1 < code.length()) {
                     lexeme += code.substring(index + 1, index + 2);
                 } else {
                     lexeme += 0;
                 }
-                if (lexeme.matches("[[+]-[*]/~^<>=!]=|[+]{2}|--|[|]{2}|[&]{2}")) {
+                if (lexeme.matches("[[+]-[*]/~^%<>=!]=|[+]{2}|--|[|]{2}|[&]{2}")) {
                     symbolTable.add(new Token(lexeme, tokenHashMap.getType(lexeme)));
                     index++;
                 } else {

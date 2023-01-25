@@ -1,0 +1,51 @@
+/* presented by group 4
+group members:
+Advincula
+Bon
+Suzon
+Memis
+Pataueg
+Sta. Ana
+Fajardo
+*/
+
+publiko class SampleClass {
+	final integer count = 0;
+	int a = 10;
+	final string section = "BSCS 3-3";
+	pinal float pi = 3.1416;
+	pinal boolean trigger = tama;
+
+	public estatika void main () {
+		print((count + a) + section);
+	}
+
+	public void if () {
+		if (pi > 10) {
+			print(10 / 50 * 40);
+			count++;
+		} else {
+			print((50 % 10) ^ 5 + 3); 
+			count--;
+		}
+	}
+
+	// this method checks the value of pi against a value
+	pribado int checkPi(float value) {
+		if (value > pi) {
+			printf("value is greater than pi");
+		} else if (value >= pi){
+			printf("value is greater than or equal to pi");
+		} else if (value < pi){
+			labas("value is less than pi");
+		} else if (value <= pi){
+			labasf("value is less than or equal to pi");
+		} else if (value == pi){
+			print("value is equal to pi");
+		} else if (value != pi){
+			print("value is not equal to pi");
+		} 
+
+		if ((count > a || count == 10) && trigger == tama);
+	}
+}
