@@ -1,0 +1,13 @@
+LEXEMES          TOKENS
+
+final            FINAL_KEYWORD
+character        CHAR_KEYWORD
+number           CONSTANT
+=                ASSIGNMENT_OPERATOR
+10               NUMBER_LITERAL
+;                SEMICOLON_DELIMITER
+integer          INT_KEYWORD
+coount           IDENTIFIER
+=                ASSIGNMENT_OPERATOR
+25               NUMBER_LITERAL
+;                SEMICOLON_DELIMITER

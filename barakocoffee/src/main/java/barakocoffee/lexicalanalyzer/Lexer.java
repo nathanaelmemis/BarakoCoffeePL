@@ -124,11 +124,13 @@ public class Lexer {
                     }
                 } else {
                     // checks if an identifier is a constant
-                    if (symbolTable.getSymbolTable().size() < 2) {
+                    if (symbolTable.getSymbolTable().size() < 1) {
                         symbolTable.add(new Token(lexeme.substring(0, lexeme.length() - 1), "IDENTIFIER"));
                     } else if (symbolTable.getSymbolTable().get(symbolTable.getSymbolTable().size() - 2).getType().equals("FINAL_KEYWORD")
                     || symbolTable.getSymbolTable().get(symbolTable.getSymbolTable().size() - 2).getType().equals("PINAL_KEYWORD")) {
                         symbolTable.add(new Token(lexeme.substring(0, lexeme.length() - 1), "CONSTANT"));
+                    } else {
+                        symbolTable.add(new Token(lexeme.substring(0, lexeme.length() - 1), "IDENTIFIER"));
                     }
                 }
                 lexeme = "";

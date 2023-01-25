@@ -60,6 +60,17 @@ public class TokenHashMap {
         lexemes.put("tuloy", "TULOY_RESERVED_WORD");
         lexemes.put("continue", "CONTINUE_RESERVED_WORD");
 
+        // noise words
+        lexemes.put("entero", "ENT_KEYWORD");
+        lexemes.put("integer", "INT_KEYWORD");
+        lexemes.put("karakter", "KAR_KEYWORD");
+        lexemes.put("character", "CHAR_KEYWORD");
+        lexemes.put("eksponente", "EKS_KEYWORD");
+        lexemes.put("exponent", "EXP_KEYWORD");
+        lexemes.put("kundiman", "KUNDI_KEYWORD");
+        lexemes.put("labasf", "LABAS_KEYWORD");
+        lexemes.put("printf", "PRINT_KEYWORD");
+
         // operators
         lexemes.put("+", "ADDITION_OPERATOR");
         lexemes.put("-", "SUBTRACTION_OPERATOR");

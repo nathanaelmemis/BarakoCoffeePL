@@ -2,8 +2,14 @@ package barakocoffee;
 
 public class Test {
     public static void main(String[] args) {
-        String[] a = "meow".split("");
+        Cat cat = new Cat();
 
-        System.out.println(a[a.length]);
+        cat.talk("meow!");
+    }
+}
+
+class Cat {
+    public void talk(String messsage) {
+        System.out.println(messsage);
     }
 }
