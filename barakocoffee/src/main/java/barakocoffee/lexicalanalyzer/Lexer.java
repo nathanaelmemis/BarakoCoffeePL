@@ -81,12 +81,29 @@ public class Lexer {
                 lexeme = "";
             }
 
-            // number literals
+            // number/float literals
             else if (lexeme.matches("[0-9]")) {
                 while (lexeme.matches("[0-9]+\\.?[0-9]*") && ++index < code.length()) {
                     lexeme += code.substring(index, index + 1);
                 }
-                if (lexeme.substring(0, lexeme.length() - 1).matches("[0-9]+\\.[0-9]*")) {
+                // check if there is + or - sign before number/float
+                if (symbolTable.getSymbolTable().size() > 0) {
+                    if (symbolTable.getSymbolTable().size() > 1) {
+                        if (symbolTable.getSymbolTable().get(symbolTable.getSymbolTable().size() - 2).getType().matches("CLOSE_PARENTHESIS_DELIMITER|.*_LITERAL|IDENTIFIER|CONSTANT")) {
+                        } else if (symbolTable.getSymbolTable().get(symbolTable.getSymbolTable().size() - 1).getLexeme().matches("-|[+]")) {
+                            if (symbolTable.getSymbolTable().get(symbolTable.getSymbolTable().size() - 1).getLexeme().equals("-")) {
+                                lexeme = "-" + lexeme;
+                            }
+                        symbolTable.getSymbolTable().remove(symbolTable.getSymbolTable().size() - 1);
+                        }
+                    } else if (symbolTable.getSymbolTable().get(symbolTable.getSymbolTable().size() - 1).getLexeme().matches("-|[+]")) {
+                        if (symbolTable.getSymbolTable().get(symbolTable.getSymbolTable().size() - 1).getLexeme().equals("-")) {
+                            lexeme = "-" + lexeme;
+                        }
+                        symbolTable.getSymbolTable().remove(symbolTable.getSymbolTable().size() - 1);
+                    }
+                } 
+                if (lexeme.substring(0, lexeme.length() - 1).matches("-?[+]?[0-9]+\\.[0-9]*")) {
                     symbolTable.add(new Token(lexeme.substring(0, lexeme.length() - 1), "FLOAT_LITERAL"));
                 } else {
                     symbolTable.add(new Token(lexeme.substring(0, lexeme.length() - 1), "NUMBER_LITERAL"));
@@ -125,7 +142,7 @@ public class Lexer {
                     }
                 } else {
                     // checks if an identifier is a constant
-                    if (symbolTable.getSymbolTable().size() < 1) {
+                    if (symbolTable.getSymbolTable().size() < 2) {
                         symbolTable.add(new Token(lexeme.substring(0, lexeme.length() - 1), "IDENTIFIER"));
                     } else if (symbolTable.getSymbolTable().get(symbolTable.getSymbolTable().size() - 2).getType().equals("FINAL_KEYWORD")
                     || symbolTable.getSymbolTable().get(symbolTable.getSymbolTable().size() - 2).getType().equals("PINAL_KEYWORD")) {

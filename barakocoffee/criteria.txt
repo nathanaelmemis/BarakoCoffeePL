@@ -13,7 +13,7 @@ count                                      CONSTANT
 int                                        INT_KEYWORD
 a                                          IDENTIFIER
 =                                          ASSIGNMENT_OPERATOR
-10                                         NUMBER_LITERAL
+-10                                        NUMBER_LITERAL
 ;                                          SEMICOLON_DELIMITER
 final                                      FINAL_KEYWORD
 string                                     STRING_KEYWORD
@@ -67,7 +67,7 @@ pi                                         IDENTIFIER
 {                                          OPEN_CURLY_DELIMITER
 print                                      PRINT_KEYWORD
 (                                          OPEN_PARENTHESIS_DELIMITER
-10                                         NUMBER_LITERAL
+-10                                        NUMBER_LITERAL
 /                                          DIVISION_OPERATOR
 50                                         NUMBER_LITERAL
 *                                          MULTIPLICATION_OPERATOR
