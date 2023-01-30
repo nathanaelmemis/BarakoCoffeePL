@@ -33,11 +33,18 @@ public class Lexer {
 
         // Tokenization
         code += " ";
-        for (int index = 0; index < code.length(); index++) {
+        for (int index = 0, lineNumber = 1; index < code.length(); index++) {
             lexeme += code.substring(index, index + 1);
 
             // white spaces
-            if (lexeme.matches("[\t\n\f\r ]+")) {
+            if (lexeme.matches("[\t ]+")) {
+                lexeme = "";
+                continue;
+            }
+
+            // new lines
+            if (lexeme.matches("[\n\f\r]+")) {
+                lineNumber++;
                 lexeme = "";
                 continue;
             }
@@ -60,7 +67,7 @@ public class Lexer {
                     System.out.println ("Error: Invalid character literal: " + lexeme);
                     System.exit(1);
                 }
-                symbolTable.add(new Token(lexeme, "CHARACTER_LITERAL"));
+                symbolTable.add(new Token(lexeme, "CHARACTER_LITERAL", lineNumber));
                 lexeme = "";
             }
 
@@ -77,11 +84,11 @@ public class Lexer {
                     System.out.println ("Error: String literal is not properly closed: " + lexeme);
                     System.exit(1);
                 }
-                symbolTable.add(new Token(lexeme, "STRING_LITERAL"));
+                symbolTable.add(new Token(lexeme, "STRING_LITERAL", lineNumber));
                 lexeme = "";
             }
 
-            // number/float literals
+            // integer/float literals
             else if (lexeme.matches("[0-9]")) {
                 while (lexeme.matches("[0-9]+\\.?[0-9]*") && ++index < code.length()) {
                     lexeme += code.substring(index, index + 1);
@@ -104,9 +111,9 @@ public class Lexer {
                     }
                 } 
                 if (lexeme.substring(0, lexeme.length() - 1).matches("-?[+]?[0-9]+\\.[0-9]*")) {
-                    symbolTable.add(new Token(lexeme.substring(0, lexeme.length() - 1), "FLOAT_LITERAL"));
+                    symbolTable.add(new Token(lexeme.substring(0, lexeme.length() - 1), "FLOAT_LITERAL", lineNumber));
                 } else {
-                    symbolTable.add(new Token(lexeme.substring(0, lexeme.length() - 1), "NUMBER_LITERAL"));
+                    symbolTable.add(new Token(lexeme.substring(0, lexeme.length() - 1), "INTEGER_LITERAL", lineNumber));
                 }
                 lexeme = "";
                 index--;
@@ -120,7 +127,7 @@ public class Lexer {
                 if (tokenHashMap.isToken(lexeme.substring(0, lexeme.length() - 1))) {
                     // checks if keyword is used as identifier then label as RESERVED_WORD
                     if (symbolTable.getSymbolTable().size() < 1) {
-                        symbolTable.add(new Token(lexeme.substring(0, lexeme.length() - 1), tokenHashMap.getType(lexeme.substring(0, lexeme.length() - 1))));
+                        symbolTable.add(new Token(lexeme.substring(0, lexeme.length() - 1), tokenHashMap.getType(lexeme.substring(0, lexeme.length() - 1)), lineNumber));
                     } else {
                         String symbol = symbolTable.getSymbolTable().get(symbolTable.getSymbolTable().size() - 1).getType();
                         if (symbol.equals("ENT_KEYWORD")
@@ -135,20 +142,20 @@ public class Lexer {
                         || symbol.equals("KLASE_KEYWORD")
                         || symbol.equals("CLASS_KEYWORD")
                         || symbol.equals("STRUCT_KEYWORD")) {
-                            symbolTable.add(new Token(lexeme.substring(0, lexeme.length() - 1), "RESERVED_WORD"));
+                            symbolTable.add(new Token(lexeme.substring(0, lexeme.length() - 1), "RESERVED_WORD", lineNumber));
                         } else {
-                            symbolTable.add(new Token(lexeme.substring(0, lexeme.length() - 1), tokenHashMap.getType(lexeme.substring(0, lexeme.length() - 1))));
+                            symbolTable.add(new Token(lexeme.substring(0, lexeme.length() - 1), tokenHashMap.getType(lexeme.substring(0, lexeme.length() - 1)), lineNumber));
                         }
                     }
                 } else {
                     // checks if an identifier is a constant
                     if (symbolTable.getSymbolTable().size() < 2) {
-                        symbolTable.add(new Token(lexeme.substring(0, lexeme.length() - 1), "IDENTIFIER"));
+                        symbolTable.add(new Token(lexeme.substring(0, lexeme.length() - 1), "IDENTIFIER", lineNumber));
                     } else if (symbolTable.getSymbolTable().get(symbolTable.getSymbolTable().size() - 2).getType().equals("FINAL_KEYWORD")
                     || symbolTable.getSymbolTable().get(symbolTable.getSymbolTable().size() - 2).getType().equals("PINAL_KEYWORD")) {
-                        symbolTable.add(new Token(lexeme.substring(0, lexeme.length() - 1), "CONSTANT"));
+                        symbolTable.add(new Token(lexeme.substring(0, lexeme.length() - 1), "CONSTANT", lineNumber));
                     } else {
-                        symbolTable.add(new Token(lexeme.substring(0, lexeme.length() - 1), "IDENTIFIER"));
+                        symbolTable.add(new Token(lexeme.substring(0, lexeme.length() - 1), "IDENTIFIER", lineNumber));
                     }
                 }
                 lexeme = "";
@@ -163,11 +170,11 @@ public class Lexer {
                     lexeme += 0;
                 }
                 if (lexeme.matches("[[+]-[*]/~^%<>=!]=|[+]{2}|--|[|]{2}|[&]{2}")) {
-                    symbolTable.add(new Token(lexeme, tokenHashMap.getType(lexeme)));
+                    symbolTable.add(new Token(lexeme, tokenHashMap.getType(lexeme), lineNumber));
                     index++;
                 } else {
                     if (tokenHashMap.isToken(lexeme.substring(0, lexeme.length() - 1))) {
-                        symbolTable.add(new Token(lexeme.substring(0, lexeme.length() - 1), tokenHashMap.getType(lexeme.substring(0, lexeme.length() - 1))));
+                        symbolTable.add(new Token(lexeme.substring(0, lexeme.length() - 1), tokenHashMap.getType(lexeme.substring(0, lexeme.length() - 1)), lineNumber));
                     } else {
                         System.out.println("Error: Invalid token: " + lexeme.substring(0, lexeme.length() - 1));
                         System.exit(1);
@@ -210,9 +217,17 @@ public class Lexer {
     }
 
     private String findEndBlockComment(String substring) throws MissingEndBlockCommentException {
-        for (int i = 1; i < substring.length(); i++) {
+        for (int i = 1, newLineNumber = 0; i < substring.length(); i++) {
+            if (substring.substring(i - 1, i).matches("[\n\f\r]+")) {
+                newLineNumber++;
+            }
             if (substring.substring(i - 1, i + 1).equals("*/")) {
-                return substring.substring(i + 1);
+                substring = substring.substring(i + 1);
+                for (int j = 0; j < newLineNumber; j++) {
+                    substring = "\n" + substring;
+                }
+
+                return substring;
             }
         }
 

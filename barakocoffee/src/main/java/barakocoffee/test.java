@@ -2,8 +2,8 @@ package barakocoffee;
 
 public class Test {
     public static void main(String[] args) {
-        int a = 100;
+        String a = "test";
 
-        System.out.println(a - 10);
+        System.out.println(a.substring(0, 1));
     }
 }

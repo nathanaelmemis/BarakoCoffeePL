@@ -35,18 +35,18 @@ public class SymbolTable {
 
     public void printSymbolTable() {
         int spaces = longestLexemeLength() + 5;
-        System.out.println(String.format("%-" + spaces + "s", "LEXEMES") + "TOKENS\n\n");
+        System.out.println(String.format("%-" + spaces + "s", "LEXEMES") + String.format("%-" + 40 + "s", "TOKENS") + "LINE NUMBER\n\n");
         for (int i = 0; i < symbolTable.size(); i++) {
-            System.out.println(String.format("%-" + spaces + "s", symbolTable.get(i).getLexeme()) + symbolTable.get(i).getType() + "\n");
+            System.out.println(String.format("%-" + spaces + "s", symbolTable.get(i).getLexeme()) + String.format("%-" + 40 + "s", symbolTable.get(i).getType()) + symbolTable.get(i).getLineNumber() + "\n");
         }
     }
 
     public void printSymbolTable(String file, Boolean append) throws IOException {
         FileWriter fileWriter = new FileWriter(file, append);
         int spaces = longestLexemeLength() + 5;
-        fileWriter.write(String.format("%-" + spaces + "s", "LEXEMES") + "TOKENS\n\n");
+        fileWriter.write(String.format("%-" + spaces + "s", "LEXEMES") + String.format("%-" + 40 + "s", "TOKENS") + "LINE NUMBER\n\n");
         for (int i = 0; i < symbolTable.size(); i++) {
-            fileWriter.write(String.format("%-" + spaces + "s", symbolTable.get(i).getLexeme()) + symbolTable.get(i).getType() + "\n");
+            fileWriter.write(String.format("%-" + spaces + "s", symbolTable.get(i).getLexeme()) + String.format("%-" + 40 + "s", symbolTable.get(i).getType()) + symbolTable.get(i).getLineNumber() + "\n");
         }
         fileWriter.close();
     }

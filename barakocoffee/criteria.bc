@@ -11,7 +11,7 @@ Fajardo
 
 publiko class SampleClass {
 	final integer count = 0;
-	int a = -10;
+	int a = +10;
 	final string section = "BSCS 3-3";
 	pinal float pi = 3.1416;
 	pinal boolean trigger = tama;
@@ -22,7 +22,7 @@ publiko class SampleClass {
 
 	public void if () {
 		if (pi > 10) {
-			print(-10 / 50 * 40);
+			print(+10 / 50 * 40);
 			count++;
 		} else {
 			print((50 % 10) ^ 5 + 3); 
