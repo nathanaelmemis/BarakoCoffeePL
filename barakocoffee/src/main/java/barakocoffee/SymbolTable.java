@@ -1,4 +1,4 @@
-package barakocoffee.lexicalanalyzer;
+package barakocoffee;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -35,18 +35,18 @@ public class SymbolTable {
 
     public void printSymbolTable() {
         int spaces = longestLexemeLength() + 5;
-        System.out.println(String.format("%-" + spaces + "s", "LEXEMES") + String.format("%-" + 40 + "s", "TOKENS") + "LINE NUMBER\n\n");
+        System.out.println(String.format("%-" + spaces + "s", "LEXEMES") + String.format("%-" + 40 + "s", "TOKENS") + String.format("%-" + 8 + "s", "DEPTH") + "LINE NUMBER\n\n");
         for (int i = 0; i < symbolTable.size(); i++) {
-            System.out.println(String.format("%-" + spaces + "s", symbolTable.get(i).getLexeme()) + String.format("%-" + 40 + "s", symbolTable.get(i).getType()) + symbolTable.get(i).getLineNumber() + "\n");
+            System.out.println(String.format("%-" + spaces + "s", symbolTable.get(i).getLexeme()) + String.format("%-" + 40 + "s", symbolTable.get(i).getType()) + String.format("%-" + 5 + "s", symbolTable.get(i).getDepth()) + symbolTable.get(i).getLineNumber() + "\n");
         }
     }
 
     public void printSymbolTable(String file, Boolean append) throws IOException {
         FileWriter fileWriter = new FileWriter(file, append);
         int spaces = longestLexemeLength() + 5;
-        fileWriter.write(String.format("%-" + spaces + "s", "LEXEMES") + String.format("%-" + 40 + "s", "TOKENS") + "LINE NUMBER\n\n");
+        fileWriter.write(String.format("%-" + spaces + "s", "LEXEMES") + String.format("%-" + 40 + "s", "TOKENS") + String.format("%-" + 8 + "s", "DEPTH") + "LINE NUMBER\n\n");
         for (int i = 0; i < symbolTable.size(); i++) {
-            fileWriter.write(String.format("%-" + spaces + "s", symbolTable.get(i).getLexeme()) + String.format("%-" + 40 + "s", symbolTable.get(i).getType()) + symbolTable.get(i).getLineNumber() + "\n");
+            fileWriter.write(String.format("%-" + spaces + "s", symbolTable.get(i).getLexeme()) + String.format("%-" + 40 + "s", symbolTable.get(i).getType()) + String.format("%-" + 5 + "s", symbolTable.get(i).getDepth()) + symbolTable.get(i).getLineNumber() + "\n");
         }
         fileWriter.close();
     }

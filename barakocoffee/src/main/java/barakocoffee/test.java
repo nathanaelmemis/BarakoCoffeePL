@@ -2,8 +2,14 @@ package barakocoffee;
 
 public class Test {
     public static void main(String[] args) {
-        String a = "test";
+        int number = 0;
 
-        System.out.println(a.substring(0, 1));
+        for (int i = 0; i < 10; i++, number++) {
+            if (i == 5) {
+                break;
+            }
+        }
+
+        System.out.println(number);
     }
 }

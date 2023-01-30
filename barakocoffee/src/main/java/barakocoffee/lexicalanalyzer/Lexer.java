@@ -3,6 +3,9 @@ package barakocoffee.lexicalanalyzer;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
+
+import barakocoffee.SymbolTable;
+import barakocoffee.Token;
 import barakocoffee.lexicalanalyzer.exceptions.MissingEndBlockCommentException;
 import barakocoffee.lexicalanalyzer.exceptions.MissingStartBlockCommentException;
 
@@ -33,7 +36,7 @@ public class Lexer {
 
         // Tokenization
         code += " ";
-        for (int index = 0, lineNumber = 1; index < code.length(); index++) {
+        for (int index = 0, lineNumber = 1, depth = 1; index < code.length(); index++) {
             lexeme += code.substring(index, index + 1);
 
             // white spaces
@@ -67,7 +70,7 @@ public class Lexer {
                     System.out.println ("Error: Invalid character literal: " + lexeme);
                     System.exit(1);
                 }
-                symbolTable.add(new Token(lexeme, "CHARACTER_LITERAL", lineNumber));
+                symbolTable.add(new Token(lexeme, "CHARACTER_LITERAL", depth, lineNumber));
                 lexeme = "";
             }
 
@@ -84,7 +87,7 @@ public class Lexer {
                     System.out.println ("Error: String literal is not properly closed: " + lexeme);
                     System.exit(1);
                 }
-                symbolTable.add(new Token(lexeme, "STRING_LITERAL", lineNumber));
+                symbolTable.add(new Token(lexeme, "STRING_LITERAL", depth, lineNumber));
                 lexeme = "";
             }
 
@@ -111,9 +114,9 @@ public class Lexer {
                     }
                 } 
                 if (lexeme.substring(0, lexeme.length() - 1).matches("-?[+]?[0-9]+\\.[0-9]*")) {
-                    symbolTable.add(new Token(lexeme.substring(0, lexeme.length() - 1), "FLOAT_LITERAL", lineNumber));
+                    symbolTable.add(new Token(lexeme.substring(0, lexeme.length() - 1), "FLOAT_LITERAL", depth, lineNumber));
                 } else {
-                    symbolTable.add(new Token(lexeme.substring(0, lexeme.length() - 1), "INTEGER_LITERAL", lineNumber));
+                    symbolTable.add(new Token(lexeme.substring(0, lexeme.length() - 1), "INTEGER_LITERAL", depth, lineNumber));
                 }
                 lexeme = "";
                 index--;
@@ -127,7 +130,7 @@ public class Lexer {
                 if (tokenHashMap.isToken(lexeme.substring(0, lexeme.length() - 1))) {
                     // checks if keyword is used as identifier then label as RESERVED_WORD
                     if (symbolTable.getSymbolTable().size() < 1) {
-                        symbolTable.add(new Token(lexeme.substring(0, lexeme.length() - 1), tokenHashMap.getType(lexeme.substring(0, lexeme.length() - 1)), lineNumber));
+                        symbolTable.add(new Token(lexeme.substring(0, lexeme.length() - 1), tokenHashMap.getType(lexeme.substring(0, lexeme.length() - 1)), depth, lineNumber));
                     } else {
                         String symbol = symbolTable.getSymbolTable().get(symbolTable.getSymbolTable().size() - 1).getType();
                         if (symbol.equals("ENT_KEYWORD")
@@ -142,44 +145,56 @@ public class Lexer {
                         || symbol.equals("KLASE_KEYWORD")
                         || symbol.equals("CLASS_KEYWORD")
                         || symbol.equals("STRUCT_KEYWORD")) {
-                            symbolTable.add(new Token(lexeme.substring(0, lexeme.length() - 1), "RESERVED_WORD", lineNumber));
+                            symbolTable.add(new Token(lexeme.substring(0, lexeme.length() - 1), "RESERVED_WORD", depth, lineNumber));
                         } else {
-                            symbolTable.add(new Token(lexeme.substring(0, lexeme.length() - 1), tokenHashMap.getType(lexeme.substring(0, lexeme.length() - 1)), lineNumber));
+                            symbolTable.add(new Token(lexeme.substring(0, lexeme.length() - 1), tokenHashMap.getType(lexeme.substring(0, lexeme.length() - 1)), depth, lineNumber));
                         }
                     }
                 } else {
                     // checks if an identifier is a constant
                     if (symbolTable.getSymbolTable().size() < 2) {
-                        symbolTable.add(new Token(lexeme.substring(0, lexeme.length() - 1), "IDENTIFIER", lineNumber));
+                        symbolTable.add(new Token(lexeme.substring(0, lexeme.length() - 1), "IDENTIFIER", depth, lineNumber));
                     } else if (symbolTable.getSymbolTable().get(symbolTable.getSymbolTable().size() - 2).getType().equals("FINAL_KEYWORD")
                     || symbolTable.getSymbolTable().get(symbolTable.getSymbolTable().size() - 2).getType().equals("PINAL_KEYWORD")) {
-                        symbolTable.add(new Token(lexeme.substring(0, lexeme.length() - 1), "CONSTANT", lineNumber));
+                        symbolTable.add(new Token(lexeme.substring(0, lexeme.length() - 1), "CONSTANT", depth, lineNumber));
                     } else {
-                        symbolTable.add(new Token(lexeme.substring(0, lexeme.length() - 1), "IDENTIFIER", lineNumber));
+                        symbolTable.add(new Token(lexeme.substring(0, lexeme.length() - 1), "IDENTIFIER", depth, lineNumber));
                     }
                 }
                 lexeme = "";
                 index--;
             }
 
-            // operators
+            // operators/delimiters
             else if (lexeme.matches("[[+]-[*]/~^%<>=!()[{][}]\\[\\];.[|][&]]")) {
+                // to specify depth in code for easier parsing
+                if (lexeme.equals("}")) {
+                    depth--;
+                }
+
                 if (index + 1 < code.length()) {
                     lexeme += code.substring(index + 1, index + 2);
                 } else {
                     lexeme += 0;
                 }
+
                 if (lexeme.matches("[[+]-[*]/~^%<>=!]=|[+]{2}|--|[|]{2}|[&]{2}")) {
-                    symbolTable.add(new Token(lexeme, tokenHashMap.getType(lexeme), lineNumber));
+                    symbolTable.add(new Token(lexeme, tokenHashMap.getType(lexeme), depth, lineNumber));
                     index++;
                 } else {
-                    if (tokenHashMap.isToken(lexeme.substring(0, lexeme.length() - 1))) {
-                        symbolTable.add(new Token(lexeme.substring(0, lexeme.length() - 1), tokenHashMap.getType(lexeme.substring(0, lexeme.length() - 1)), lineNumber));
+                    if (tokenHashMap.isToken(lexeme.substring(0, 1))) {
+                        symbolTable.add(new Token(lexeme.substring(0, 1), tokenHashMap.getType(lexeme.substring(0, 1)), depth, lineNumber));
                     } else {
-                        System.out.println("Error: Invalid token: " + lexeme.substring(0, lexeme.length() - 1));
+                        System.out.println("Error: Invalid token: " + lexeme.substring(0, 1));
                         System.exit(1);
                     }
                 }
+
+                // to specify depth in code for easier parsing
+                if (lexeme.substring(0, 1).equals("{")) {
+                    depth++;
+                }
+                
                 lexeme = "";
             } 
             

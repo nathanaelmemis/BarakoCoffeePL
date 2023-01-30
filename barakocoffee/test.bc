@@ -1,0 +1,5 @@
+class SampleClass {
+	public void myMethod() {
+		int number = 0;
+	}
+}
