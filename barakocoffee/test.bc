@@ -1,5 +1,5 @@
 class SampleClass {
-	public void myMethod() {
-		int number = 0;
+	public void test() {
+		object.test.method();
 	}
 }

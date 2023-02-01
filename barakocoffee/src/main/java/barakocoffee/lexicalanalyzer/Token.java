@@ -1,4 +1,4 @@
-package barakocoffee;
+package barakocoffee.lexicalanalyzer;
 
 public class Token {
     private String lexeme;

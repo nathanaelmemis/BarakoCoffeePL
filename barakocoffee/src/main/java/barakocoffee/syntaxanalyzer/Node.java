@@ -1,7 +1,8 @@
 package barakocoffee.syntaxanalyzer;
 
 import java.util.ArrayList;
-import barakocoffee.Token;
+
+import barakocoffee.lexicalanalyzer.Token;
 
 public class Node {
     private Token token;

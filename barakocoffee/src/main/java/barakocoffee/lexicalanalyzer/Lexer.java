@@ -5,7 +5,6 @@ import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 import barakocoffee.SymbolTable;
-import barakocoffee.Token;
 import barakocoffee.lexicalanalyzer.exceptions.MissingEndBlockCommentException;
 import barakocoffee.lexicalanalyzer.exceptions.MissingStartBlockCommentException;
 
@@ -96,24 +95,7 @@ public class Lexer {
                 while (lexeme.matches("[0-9]+\\.?[0-9]*") && ++index < code.length()) {
                     lexeme += code.substring(index, index + 1);
                 }
-                // check if there is + or - sign before number/float
-                if (symbolTable.getSymbolTable().size() > 0) {
-                    if (symbolTable.getSymbolTable().size() > 1) {
-                        if (symbolTable.getSymbolTable().get(symbolTable.getSymbolTable().size() - 2).getType().matches("CLOSE_PARENTHESIS_DELIMITER|.*_LITERAL|IDENTIFIER|CONSTANT")) {
-                        } else if (symbolTable.getSymbolTable().get(symbolTable.getSymbolTable().size() - 1).getLexeme().matches("-|[+]")) {
-                            if (symbolTable.getSymbolTable().get(symbolTable.getSymbolTable().size() - 1).getLexeme().equals("-")) {
-                                lexeme = "-" + lexeme;
-                            }
-                        symbolTable.getSymbolTable().remove(symbolTable.getSymbolTable().size() - 1);
-                        }
-                    } else if (symbolTable.getSymbolTable().get(symbolTable.getSymbolTable().size() - 1).getLexeme().matches("-|[+]")) {
-                        if (symbolTable.getSymbolTable().get(symbolTable.getSymbolTable().size() - 1).getLexeme().equals("-")) {
-                            lexeme = "-" + lexeme;
-                        }
-                        symbolTable.getSymbolTable().remove(symbolTable.getSymbolTable().size() - 1);
-                    }
-                } 
-                if (lexeme.substring(0, lexeme.length() - 1).matches("-?[+]?[0-9]+\\.[0-9]*")) {
+                if (lexeme.substring(0, lexeme.length() - 1).matches("[0-9]+\\.[0-9]*")) {
                     symbolTable.add(new Token(lexeme.substring(0, lexeme.length() - 1), "FLOAT_LITERAL", depth, lineNumber));
                 } else {
                     symbolTable.add(new Token(lexeme.substring(0, lexeme.length() - 1), "INTEGER_LITERAL", depth, lineNumber));
@@ -155,10 +137,17 @@ public class Lexer {
                     if (symbolTable.getSymbolTable().size() < 2) {
                         symbolTable.add(new Token(lexeme.substring(0, lexeme.length() - 1), "IDENTIFIER", depth, lineNumber));
                     } else if (symbolTable.getSymbolTable().get(symbolTable.getSymbolTable().size() - 2).getType().equals("FINAL_KEYWORD")
-                    || symbolTable.getSymbolTable().get(symbolTable.getSymbolTable().size() - 2).getType().equals("PINAL_KEYWORD")) {
+                            || symbolTable.getSymbolTable().get(symbolTable.getSymbolTable().size() - 2).getType().equals("PINAL_KEYWORD")) {
                         symbolTable.add(new Token(lexeme.substring(0, lexeme.length() - 1), "CONSTANT", depth, lineNumber));
                     } else {
-                        symbolTable.add(new Token(lexeme.substring(0, lexeme.length() - 1), "IDENTIFIER", depth, lineNumber));
+                        if (symbolTable.getSymbolTable().size() < 3) {
+                            symbolTable.add(new Token(lexeme.substring(0, lexeme.length() - 1), "IDENTIFIER", depth, lineNumber));
+                        } else if (symbolTable.getSymbolTable().get(symbolTable.getSymbolTable().size() - 3).getType().equals("FINAL_KEYWORD")
+                                || symbolTable.getSymbolTable().get(symbolTable.getSymbolTable().size() - 3).getType().equals("PINAL_KEYWORD")) {
+                            symbolTable.add(new Token(lexeme.substring(0, lexeme.length() - 1), "CONSTANT", depth, lineNumber));
+                        } else {
+                            symbolTable.add(new Token(lexeme.substring(0, lexeme.length() - 1), "IDENTIFIER", depth, lineNumber));
+                        }
                     }
                 }
                 lexeme = "";
@@ -166,7 +155,7 @@ public class Lexer {
             }
 
             // operators/delimiters
-            else if (lexeme.matches("[[+]-[*]/~^%<>=!()[{][}]\\[\\];.[|][&]]")) {
+            else if (lexeme.matches("[[+]-[*]/~^%<>=!()[{][}]\\[\\];,.[|][&]]")) {
                 // to specify depth in code for easier parsing
                 if (lexeme.equals("}")) {
                     depth--;

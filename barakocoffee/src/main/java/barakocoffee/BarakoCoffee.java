@@ -3,11 +3,9 @@ package barakocoffee;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 import barakocoffee.lexicalanalyzer.Lexer;
-import barakocoffee.syntaxanalyzer.Node;
 import barakocoffee.syntaxanalyzer.Parser;
 
 public class BarakoCoffee {
@@ -94,9 +92,8 @@ public class BarakoCoffee {
 
     private void commandLineCompile(String[] args) throws IOException {
         Lexer lexicalAnalyzer = new Lexer();
-        Parser parser;
+        Parser parser = new Parser();
         SymbolTable symbolTable;
-        Node parseTree;
         
         if (checkFile(args[0], FileType.INPUT, FileState.NOT_EXIST)) {
             return;
@@ -114,18 +111,15 @@ public class BarakoCoffee {
 
         symbolTable = lexicalAnalyzer.scan(args[0]);
         //symbolTable.printSymbolTable(args[1], true);
-        parser = new Parser(symbolTable);
-        parseTree = parser.createParseTree(new Node(null, new ArrayList<Node>()));
-        parser.printParseTree(parseTree);
-
-        System.out.println("Compilation successful!");
+        if (parser.isValidSyntax(parser.translate(symbolTable))) {
+            System.out.println("Compilation successful!");
+        }
     }
 
     private void compile(Scanner scanner) throws IOException {
         Lexer lexicalAnalyzer = new Lexer();
-        Parser parser;
+        Parser parser = new Parser();
         SymbolTable symbolTable;
-        Node parseTree;
 
         System.out.print("\nEnter BarakoCoffee code file name: ");
         String input = scanner.nextLine();
@@ -144,11 +138,9 @@ public class BarakoCoffee {
 
         symbolTable = lexicalAnalyzer.scan(input);
         //symbolTable.printSymbolTable(output, true);
-        parser = new Parser(symbolTable);
-        parseTree = parser.createParseTree(new Node(null, new ArrayList<Node>()));
-        parser.printParseTree(parseTree);
-
-        System.out.print("\nCompilation successful!");
+        if (parser.isValidSyntax(parser.translate(symbolTable))) {
+            System.out.println("Compilation successful!");
+        }
     }
 
     private void read(Scanner scanner) throws FileNotFoundException {

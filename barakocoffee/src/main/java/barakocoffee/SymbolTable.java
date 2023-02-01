@@ -4,6 +4,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import barakocoffee.lexicalanalyzer.Token;
+
 public class SymbolTable {
     private ArrayList<Token> symbolTable = new ArrayList<Token>();
 

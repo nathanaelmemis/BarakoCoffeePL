@@ -7,10 +7,10 @@ public class TokenHashMap {
 
     TokenHashMap() {
         // keywords
+        lexemes.put("doble", "LOBO_KEYWORD");
+        lexemes.put("double", "FLOAT_KEYWORD");
         lexemes.put("boolean", "BOOLEAN_KEYWORD");
         lexemes.put("default", "DEFAULT_KEYWORD");
-        lexemes.put("doble", "DOBLE_KEYWORD");
-        lexemes.put("double", "DOUBLE_KEYWORD");
         lexemes.put("ent", "ENT_KEYWORD");
         lexemes.put("int", "INT_KEYWORD");
         lexemes.put("kar", "KAR_KEYWORD");
@@ -54,6 +54,9 @@ public class TokenHashMap {
         lexemes.put("ibalik", "IBALIK_KEYWORD");
         lexemes.put("static", "STATIC_KEYWORD");
         lexemes.put("estatika", "ESTATIKA_KEYWORD");
+        lexemes.put("abstract", "ABSTRACT_KEYWORD");
+        lexemes.put("abstrak", "ABSTRAK_KEYWORD");
+        lexemes.put("interface", "INTERFACE_KEYWORD");
 
         // reserved words
         lexemes.put("prinsipal", "PRINSIPAL_RESERVED_WORD");
@@ -111,11 +114,12 @@ public class TokenHashMap {
         lexemes.put(";", "SEMICOLON_DELIMITER");
         lexemes.put(".", "DOT_DELIMITER");
 
-        // boolean literals
-        lexemes.put("true", "TRUE_BOOLEAN_LITERAL");
-        lexemes.put("false", "FALSE_BOOLEAN_LITERAL");
-        lexemes.put("tama", "TAMA_BOOLEAN_LITERAL");
-        lexemes.put("mali", "MALI_BOOLEAN_LITERAL");
+        // literals
+        lexemes.put("true", "BOOLEAN_LITERAL");
+        lexemes.put("false", "BOOLEAN_LITERAL");
+        lexemes.put("tama", "BOOLEAN_LITERAL");
+        lexemes.put("mali", "BOOLEAN_LITERAL");
+        lexemes.put("null", "NULL_LITERAL");
     }
 
     public Boolean isToken(String lexeme) {
