@@ -16,11 +16,11 @@ publiko class SampleClass {
 	pinal float pi = 3.1416;
 	pinal boolean trigger = tama;
 
-	public estatika void main () {
+	public estatika void talk () {
 		print((count + a) + section);
 	}
 
-	public void if () {
+	public void getPi(int pi) {
 		if (pi > 10) {
 			print(+10 / 50 * 40);
 			count++;
@@ -46,6 +46,8 @@ publiko class SampleClass {
 			print("value is not equal to pi");
 		} 
 
-		if ((count > a || count == 10) && trigger == tama);
+		if ((count > a || count == 10) && trigger == tama) {
+			
+		}
 	}
 }

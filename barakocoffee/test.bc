@@ -1,5 +1,46 @@
 class SampleClass {
-	public void test() {
-		object.test.method();
+
+	public static void talk(int a, string b) {
+		class ming {
+
+		}
 	}
+	
+	public static void talk(int a, string b) {
+		if (true) {
+		}
+	}
+	public static void talk(int a, string b) {
+	}
+
+	
+
+	public int talk() {
+		if (value > pi) {
+			printf("value is greater than pi");
+		} else if (value >= pi){
+			printf("value is greater than or equal to pi");
+		} else if (value >= pi){
+			printf("value is greater than or equal to pi");
+		}else if (value >= pi){
+			printf("value is greater than or equal to pi");
+		} else {
+		}
+
+		if ((count > a || count == 10) && trigger == tama) {
+			
+		}
+	}
+	int a = 10;
+
+	int a = 4;
+	
+
+	 string a = "test" + 'a' + true;
+
+	 float a = 50;
+
+	 boolean flag = (count > 5) && (count < 10);
+
+	 int qwerty = 234 + 345 - (234 / 567) * (2345 - (345 % 5)) + 2; 
 }

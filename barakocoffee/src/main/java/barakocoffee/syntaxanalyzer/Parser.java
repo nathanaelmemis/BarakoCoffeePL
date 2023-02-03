@@ -6,12 +6,12 @@ import barakocoffee.SymbolTable;
 
 public class Parser extends Productions {
     public boolean isValidSyntax(SymbolTable symbolTable) {
-        try {
-            if (isBarakoCoffeeProduction(symbolTable, 0) == symbolTable.getSymbolTable().size()) {
-                return true;
+        if(isBarakoCoffeeProduction(symbolTable, 0) == symbolTable.getSymbolTable().size()) {
+            if (!errorMessage.equals("")) {
+                System.out.println(errorMessage);
+                return false;
             }
-        } catch (SyntaxException e) {
-            System.out.println(e.getMessage());
+            return true;
         }
         
         return false;

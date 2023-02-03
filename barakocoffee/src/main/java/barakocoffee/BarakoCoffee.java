@@ -91,7 +91,7 @@ public class BarakoCoffee {
     }
 
     private void commandLineCompile(String[] args) throws IOException {
-        Lexer lexicalAnalyzer = new Lexer();
+        Lexer lexer = new Lexer();
         Parser parser = new Parser();
         SymbolTable symbolTable;
         
@@ -109,7 +109,7 @@ public class BarakoCoffee {
             return;
         }
 
-        symbolTable = lexicalAnalyzer.scan(args[0]);
+        symbolTable = lexer.scan(args[0]);
         //symbolTable.printSymbolTable(args[1], true);
         if (parser.isValidSyntax(parser.translate(symbolTable))) {
             System.out.println("Compilation successful!");
@@ -117,7 +117,7 @@ public class BarakoCoffee {
     }
 
     private void compile(Scanner scanner) throws IOException {
-        Lexer lexicalAnalyzer = new Lexer();
+        Lexer lexer = new Lexer();
         Parser parser = new Parser();
         SymbolTable symbolTable;
 
@@ -136,7 +136,7 @@ public class BarakoCoffee {
             return;
         }
 
-        symbolTable = lexicalAnalyzer.scan(input);
+        symbolTable = lexer.scan(input);
         //symbolTable.printSymbolTable(output, true);
         if (parser.isValidSyntax(parser.translate(symbolTable))) {
             System.out.println("Compilation successful!");

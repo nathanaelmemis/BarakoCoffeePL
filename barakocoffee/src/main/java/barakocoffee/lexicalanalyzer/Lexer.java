@@ -155,7 +155,7 @@ public class Lexer {
             }
 
             // operators/delimiters
-            else if (lexeme.matches("[[+]-[*]/~^%<>=!()[{][}]\\[\\];,.[|][&]]")) {
+            else if (lexeme.matches("[[+]-[*]/~^%<>=!()[{][}]\\[\\]:;,.[|][&]]")) {
                 // to specify depth in code for easier parsing
                 if (lexeme.equals("}")) {
                     depth--;

@@ -57,6 +57,10 @@ public class TokenHashMap {
         lexemes.put("abstract", "ABSTRACT_KEYWORD");
         lexemes.put("abstrak", "ABSTRAK_KEYWORD");
         lexemes.put("interface", "INTERFACE_KEYWORD");
+        lexemes.put("do", "DO_KEYWORD");
+        lexemes.put("while", "WHILE_KEYWORD");
+        lexemes.put("switch", "SWITCH_KEYWORD");
+        lexemes.put("case", "CASE_KEYWORD");
 
         // reserved words
         lexemes.put("prinsipal", "PRINSIPAL_RESERVED_WORD");
@@ -74,6 +78,8 @@ public class TokenHashMap {
         lexemes.put("kundiman", "KUNDI_KEYWORD");
         lexemes.put("labasf", "LABAS_KEYWORD");
         lexemes.put("printf", "PRINT_KEYWORD");
+        lexemes.put("scanf", "SCAN_KEYWORD");
+        lexemes.put("pasokf", "PASOK_KEYWORD");
 
         // operators
         lexemes.put("+", "ADDITION_OPERATOR");
@@ -112,6 +118,7 @@ public class TokenHashMap {
         lexemes.put(")", "CLOSE_PARENTHESIS_DELIMITER");
         lexemes.put(",", "COMMA_DELIMITER");
         lexemes.put(";", "SEMICOLON_DELIMITER");
+        lexemes.put(":", "COLON_DELIMITER");
         lexemes.put(".", "DOT_DELIMITER");
 
         // literals
