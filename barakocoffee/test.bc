@@ -1,19 +1,14 @@
-class SampleClass {
+class SampleClass implements A, B{
 
 	public static void talk(int a, string b) {
-		class ming {
-
-		}
 	}
-	
+
 	public static void talk(int a, string b) {
 		if (true) {
 		}
 	}
 	public static void talk(int a, string b) {
 	}
-
-	
 
 	public int talk() {
 		if (value > pi) {
@@ -42,5 +37,5 @@ class SampleClass {
 
 	 boolean flag = (count > 5) && (count < 10);
 
-	 int qwerty = 234 + 345 - (234 / 567) * (2345 - (345 % 5)) + 2; 
+	 int qwerty = 234 + 345 - (234 / 567) * (2345 - (345 % 5)) + 2;
 }

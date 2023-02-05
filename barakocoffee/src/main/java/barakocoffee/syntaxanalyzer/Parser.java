@@ -12,6 +12,13 @@ public class Parser extends Productions {
                 return false;
             }
             return true;
+        } else {
+            errorMessage += "\n\n" + "Error: Syntax Error on Line " + symbolTable.getSymbolTable().get(symbolTable.getSymbolTable().size() - 1).getLineNumber() + "\n"
+                                + "Reached End of File while Parsing";
+            if (!errorMessage.equals("")) {
+                System.out.println(errorMessage);
+                return false;
+            }
         }
         
         return false;

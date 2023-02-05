@@ -61,6 +61,7 @@ public class TokenHashMap {
         lexemes.put("while", "WHILE_KEYWORD");
         lexemes.put("switch", "SWITCH_KEYWORD");
         lexemes.put("case", "CASE_KEYWORD");
+        lexemes.put("implements", "IMPLEMENTS_KEYWORD");
 
         // reserved words
         lexemes.put("prinsipal", "PRINSIPAL_RESERVED_WORD");
