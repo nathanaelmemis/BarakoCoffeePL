@@ -1,5 +1,5 @@
 1. Expressions of strings and boolean (x)
-2. control structures (x)
+2. control structures 
 	for loop (x)
 	if, else if, else (x)
 	while, do while (x)

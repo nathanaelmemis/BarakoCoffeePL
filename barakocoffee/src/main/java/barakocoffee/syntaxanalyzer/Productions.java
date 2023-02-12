@@ -37,7 +37,8 @@ public class Productions {
     final String INITIALIZATION_LEFT = "((FINAL_KEYWORD)? ?(STATIC_KEYWORD)? ?" + DATA_TYPE + " ?((OPEN_SQUARE_DELIMITER CLOSE_SQUARE_DELIMITER) ?)* ?(CONSTANT|IDENTIFIER) ASSIGNMENT_OPERATOR)";
 
     // method call
-    final String OBJECT_CALL = "((IDENTIFIER|CONSTANT) ?(DOT_DELIMITER (IDENTIFIER|CONSTANT))*)" ;
+    final String HELP_CALL = "(HELP_KEYWORD)";
+    final String OBJECT_CALL = "((IDENTIFIER|CONSTANT) ?(DOT_DELIMITER (IDENTIFIER|CONSTANT))*|" + HELP_CALL + ")";
 
     // iterative statements
     final String FOR_HEADER_LEFT = "(FOR_KEYWORD)";
@@ -56,18 +57,18 @@ public class Productions {
     
     // expression
     final String NOT_OPERAND = "(NOT_OPERATOR *IDENTIFIER)";
-    final String CREMENT_ARITHMETIC_OPERAND = "(" + CREMENT_OPERATOR + "? ?IDENTIFIER ?" + CREMENT_OPERATOR + "?)";
+    final String CREMENT_ARITHMETIC_OPERAND = "(" + CREMENT_OPERATOR + "? ?IDENTIFIER|IDENTIFIER ?" + CREMENT_OPERATOR + "?)";
     final String SIGNED_OPERAND = "(" + SIGN_OPERATOR + " (IDENTIFIER|INTEGER_LITERAL|FLOAT_LITERAL))";
     final String OPERAND = "((INTEGER_LITERAL|FLOAT_LITERAL|STRING_LITERAL|BOOLEAN_LITERAL|CHARACTER_LITERAL|SCAN_KEYWORD)|" + CREMENT_ARITHMETIC_OPERAND + ")";
     final String EXPRESSION = "( *(" + OPERAND + "|" + NOT_OPERAND + "|" + SIGNED_OPERAND + ") *(( *" + OPERATOR + " *(" + OPERAND + "|" + NOT_OPERAND + "|" + SIGNED_OPERAND + ")) *)*)";
 
     // classes
-    final String CLASS_HEADER = "(FINAL_KEYWORD)? ?(PUBLIC_KEYWORD)? ?CLASS_KEYWORD (CONSTANT|IDENTIFIER) ?((EXTENDS_KEYWORD IDENTIFIER)|(IMPLEMENTS_KEYWORD IDENTIFIER ?(COMMA_DELIMITER IDENTIFIER ?)*)?)";
-    final String INNER_CLASS_HEADER = "(FINAL_KEYWORD)? ?" + ACCESS_MODIFIER + "? ?(STATIC_KEYWORD)? ?CLASS_KEYWORD (CONSTANT|IDENTIFIER) ?((EXTENDS_KEYWORD IDENTIFIER)|(IMPLEMENTS_KEYWORD IDENTIFIER ?(COMMA_DELIMITER IDENTIFIER ?)*)?";
-    final String ABSTRACT_CLASS_HEADER = "(PUBLIC_KEYWORD)? ?ABSTRACT_KEYWORD CLASS_KEYWORD IDENTIFIER ?((EXTENDS_KEYWORD IDENTIFIER)|(IMPLEMENTS_KEYWORD IDENTIFIER ?(COMMA_DELIMITER IDENTIFIER ?)*)?)";
-    final String INNER_ABSTRACT_CLASS_HEADER = "(PUBLIC_KEYWORD)? ?(STATIC_KEYWORD)? ?ABSTRACT_KEYWORD CLASS_KEYWORD IDENTIFIER ?((EXTENDS_KEYWORD IDENTIFIER)|(IMPLEMENTS_KEYWORD IDENTIFIER ?(COMMA_DELIMITER IDENTIFIER ?)*)?)";
-    final String INTERFACE_HEADER = "(PUBLIC_KEYWORD)? ?(ABSTRACT_KEYWORD)? ?INTERFACE_KEYWORD IDENTIFIER ?(EXTENDS_KEYWORD IDENTIFIER ?(COMMA_DELIMITER IDENTIFIER ?)*)?";
-    final String INNER_INTERFACE_HEADER = "(PUBLIC_KEYWORD)? ?(ABSTRACT_KEYWORD)? ?(STATIC_KEYWORD)? ?INTERFACE_KEYWORD (CONSTANT|IDENTIFIER) ?(EXTENDS_KEYWORD IDENTIFIER ?(COMMA_DELIMITER IDENTIFIER ?)*)?";
+    final String CLASS_HEADER = "(FINAL_KEYWORD)? ?(PUBLIC_KEYWORD)? ?CLASS_KEYWORD (CONSTANT|IDENTIFIER) ?((EXTENDS_KEYWORD IDENTIFIER)|(IMPLEMENTS_KEYWORD IDENTIFIER ?(COMMA_DELIMITER IDENTIFIER ?)*))?";
+    final String INNER_CLASS_HEADER = "(FINAL_KEYWORD)? ?" + ACCESS_MODIFIER + "? ?(STATIC_KEYWORD)? ?CLASS_KEYWORD (CONSTANT|IDENTIFIER) ?((EXTENDS_KEYWORD IDENTIFIER)|(IMPLEMENTS_KEYWORD IDENTIFIER ?(COMMA_DELIMITER IDENTIFIER ?)*))?";
+    final String ABSTRACT_CLASS_HEADER = "(PUBLIC_KEYWORD)? ?ABSTRACT_KEYWORD CLASS_KEYWORD IDENTIFIER ?((EXTENDS_KEYWORD IDENTIFIER)|(IMPLEMENTS_KEYWORD IDENTIFIER ?(COMMA_DELIMITER IDENTIFIER ?)*))?";
+    final String INNER_ABSTRACT_CLASS_HEADER = "(PUBLIC_KEYWORD)? ?(STATIC_KEYWORD)? ?ABSTRACT_KEYWORD CLASS_KEYWORD IDENTIFIER ?((EXTENDS_KEYWORD IDENTIFIER)|(IMPLEMENTS_KEYWORD IDENTIFIER ?(COMMA_DELIMITER IDENTIFIER ?)*))?";
+    final String INTERFACE_HEADER = "(PUBLIC_KEYWORD)? ?(ABSTRACT_KEYWORD)? ?INTERFACE_KEYWORD IDENTIFIER ?((EXTENDS_KEYWORD IDENTIFIER ?(COMMA_DELIMITER IDENTIFIER ?)*))?";
+    final String INNER_INTERFACE_HEADER = "(PUBLIC_KEYWORD)? ?(ABSTRACT_KEYWORD)? ?(STATIC_KEYWORD)? ?INTERFACE_KEYWORD (CONSTANT|IDENTIFIER) ?((EXTENDS_KEYWORD IDENTIFIER ?(COMMA_DELIMITER IDENTIFIER ?)*))?";
     final String STRUCT_HEADER = "(STRUCT_KEYWORD IDENTIFIER)";
     final String CLASS_METHOD_HEADER_LEFT = "(FINAL_KEYWORD)? ?" + ACCESS_MODIFIER + "? ?(STATIC_KEYWORD)? ?" + RETURN_TYPE + "? ?(CONSTANT|IDENTIFIER)";
 
@@ -99,7 +100,12 @@ public class Productions {
 
             String tokens = getTokens(index, endIndex);
 
-            if (tokens.matches(STRUCT_HEADER)) {
+            if (tokens.matches(HELP_CALL)) {
+                // struct body
+                if (symbolTable.getSymbolTable().get(endIndex).getLexeme().equals("(")) {
+                    if (symbolTable.getSymbolTable().get(endIndex).getLexeme().equals("("));
+                }
+            } else if (tokens.matches(STRUCT_HEADER)) {
                 // struct body
                 index = isStructBodyProduction(endIndex);
             } else if (tokens.matches(CLASS_HEADER)) {
@@ -146,7 +152,7 @@ public class Productions {
             String tokens = getTokens(index, endIndex);
 
             // object instantiation
-            if (tokens.matches("(IDENTIFIER|CONSTANT)")) {
+            if (tokens.matches("(IDENTIFIER|CONSTANT|HELP_KEYWORD)")) {
                 if (symbolTable.getSymbolTable().get(endIndex).getLexeme().matches("[(]")) {
                     index = isObjectCallParameterProduction(endIndex);
                 }
@@ -202,11 +208,11 @@ public class Productions {
             String tokens = getTokens(index, endIndex);
 
             // object instantiation
-            if (tokens.matches("(IDENTIFIER|CONSTANT)")) {
+            if (tokens.matches("(IDENTIFIER|CONSTANT|HELP_KEYWORD)")) {
                 if (symbolTable.getSymbolTable().get(endIndex).getLexeme().matches("[(]")) {
                     index = isObjectCallParameterProduction(endIndex);
                 }
-                if (symbolTable.getSymbolTable().get(index).getType().matches("(IDENTIFIER|CONSTANT)")) {
+                if (symbolTable.getSymbolTable().get(index).getType().matches("(IDENTIFIER|CONSTANT|HELP_KEYWORD)")) {
                     index++;
                 }
                 continue;
@@ -261,7 +267,7 @@ public class Productions {
             String tokens = getTokens(index, endIndex);
 
             // object instantiation
-            if (tokens.matches("(IDENTIFIER|CONSTANT)")) {
+            if (tokens.matches("(IDENTIFIER|CONSTANT|HELP_KEYWORD)")) {
                 if (symbolTable.getSymbolTable().get(endIndex).getLexeme().matches("[(]")) {
                     index = isObjectCallParameterProduction(endIndex);
                 }
@@ -384,6 +390,7 @@ public class Productions {
                     if (tokens.matches("(CASE_KEYWORD .*)")) {
                         index = isExpressionProduction(index + 1);
                     } else if (tokens.matches("(DEFAULT_KEYWORD)")) {
+                        index++;
                     }
                 }
                 continue;
@@ -428,7 +435,7 @@ public class Productions {
                 if (symbolTable.getSymbolTable().get(endIndex).getLexeme().matches("[(]")) {
                     index = isObjectCallParameterProduction(endIndex);
                 }
-                if (tokens.matches("(IDENTIFIER|CONSTANT)")
+                if (tokens.matches("(IDENTIFIER|CONSTANT|HELP_KEYWORD)")
                         && symbolTable.getSymbolTable().get(index).getType().matches("(IDENTIFIER|CONSTANT)")) {
                     index++;
                 }
@@ -579,13 +586,15 @@ public class Productions {
     public int isForParameterProduction(int index)  {
         int count = 1;
         int endIndex = ++index;
-        endIndex++;
+        if (endIndex + 3 < symbolTable.getSymbolTable().size()) {
+            endIndex += 3;
+        }
         while (endIndex < symbolTable.getSymbolTable().size()) {
             if (symbolTable.getSymbolTable().get(endIndex).getLexeme().matches("[)]")) {
                 return endIndex;
             }
             String tokens = getTokens(index, endIndex);
-            if (tokens.matches("(" + INITIALIZATION_LEFT + "|SEMICOLON_DELIMITER)")) {
+            if (tokens.matches("(" + INITIALIZATION_LEFT + "|" + ASSIGNMENT_LEFT + "|SEMICOLON_DELIMITER)")) {
                 if (count == 1) {
                     if (tokens.matches(INITIALIZATION_LEFT)) {
                         index = isExpressionProduction(endIndex);
@@ -598,12 +607,15 @@ public class Productions {
                     if (tokens.matches("(SEMICOLON_DELIMITER)")) {
                         index = isExpressionProduction(endIndex);
                         endIndex = ++index;
+                        if (endIndex + 2 < symbolTable.getSymbolTable().size()) {
+                            endIndex += 2;
+                        }
                     } else {
                         errorMessage += "\n\n" + "Error: Syntax Error on Line " + symbolTable.getSymbolTable().get(index).getLineNumber() + "\n"
                                         + "Invalid Second Parameter";
                     }
                 } else if (count == 3) {
-                    if (tokens.matches(INITIALIZATION_LEFT)) {
+                    if (tokens.matches(ASSIGNMENT_LEFT)) {
                         index = isExpressionProduction(endIndex);
                         endIndex = index;
                     } else {

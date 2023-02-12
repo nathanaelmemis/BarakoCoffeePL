@@ -1,14 +1,23 @@
 package barakocoffee;
 
+import java.util.Scanner;
 
+class test {
+    public static void main(String[] args) {
+        test test = new test();
 
-abstract class E {
+        test.testA();
+    }
 
+    public void testA() {
+        int a = 10- -100;
+    }
+
+    public void testB() {
+        int a = -100000;
+    }
 }
-interface F {
 
-}
-
-interface C {
-
+interface a {
+    Scanner a = new Scanner(System.in);
 }
