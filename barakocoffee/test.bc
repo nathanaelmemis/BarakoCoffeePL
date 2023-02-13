@@ -1,7 +1,12 @@
+struct sampleStruct {
+	int a;
+	string sampleString;
+}
+
 class SampleClass implements A, B {
 
 	public static void test(int a, string b) {
-		SampleObject;
+		SampleObject; help();
 
 		sampleVariable = scan();
 
@@ -11,7 +16,7 @@ class SampleClass implements A, B {
 		switch (count) {
 			case 1:
 				int a = 10;
-				a = b - - 50;
+				a = b - 50;
 			case 2: 
 				int b = 434- 24234;
 			default:
@@ -21,18 +26,17 @@ class SampleClass implements A, B {
 
 	public int talk() {
 		if (value > pi) {
-			printf("value is greater than pi");
+			print("value is greater than pi");
 		} else if (value >= pi){
-			printf("value is greater than or equal to pi");
+			print("value is greater than or equal to pi");
 		} else if (value >= pi){
-			printf("value is greater than or equal to pi");
+			print("value is greater than or equal to pi");
 		} else if (value >= pi){
-			printf("value is greater than or equal to pi");
+			print("value is greater than or equal to pi");
 		} else {
 		}
 
 		if ((count > a || count == 10) && trigger == tama) {
-			
 		}
 
 		do {
@@ -53,10 +57,6 @@ class SampleClass implements A, B {
 		}
 	}
 
-	int a = 10;
-
-	int a = 4;
-
 	string a = "test" + 'a' + true;
 
 	float a = 50;
@@ -64,20 +64,4 @@ class SampleClass implements A, B {
 	boolean flag = (count > 5) && (count < 10);
 
 	int qwerty = 234 + 345 - (234 / 567) * (2345 - (345 % 5)) + 2;
-}
-
-abstract class SampleAbstractClass {
-	int a = 10;
-
-	public void test();
-
-	public void talk(string message) {
-		print("The person said: " + message);
-	}
-}
-
-interface SampleInterface {
-	string a = "I am an interface";
-
-	public void interfaceMethod();
 }

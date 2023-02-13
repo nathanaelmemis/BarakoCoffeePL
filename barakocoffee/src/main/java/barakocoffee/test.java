@@ -1,23 +1,14 @@
 package barakocoffee;
 
-import java.util.Scanner;
-
 class test {
     public static void main(String[] args) {
-        test test = new test();
-
-        test.testA();
+        int a = 0;
+        while (true) {
+            if (a == 3) {
+                break;
+            }
+            System.out.println("test");
+            a++;
+        }
     }
-
-    public void testA() {
-        int a = 10- -100;
-    }
-
-    public void testB() {
-        int a = -100000;
-    }
-}
-
-interface a {
-    Scanner a = new Scanner(System.in);
 }

@@ -118,7 +118,8 @@ public class Productions {
                 // interface body
                 index = isInterfaceBodyProduction(endIndex);
             } else {
-                errorMessage += "\n\n" + "Error: Syntax Error on Line " + symbolTable.getSymbolTable().get(index).getLineNumber();
+                errorMessage += "\n\n" + "Error: Syntax Error on Line " + symbolTable.getSymbolTable().get(index).getLineNumber() + "\n"
+                                        + "Expected Struct, Class, Abstract Class, Interface";
             }
         }
 
@@ -175,7 +176,7 @@ public class Productions {
                 continue;
             }
 
-            index = isStatementProduction(index, endIndex, tokens);
+            index = isStatementProduction(index, endIndex, tokens, 1);
         }
 
         return index;
@@ -234,7 +235,7 @@ public class Productions {
                 continue;
             }
 
-            index = isStatementProduction(index, endIndex, tokens);
+            index = isStatementProduction(index, endIndex, tokens, 3);
         }
 
         return index;
@@ -293,7 +294,7 @@ public class Productions {
                 continue;
             }
 
-            index = isStatementProduction(index, endIndex, tokens);
+            index = isStatementProduction(index, endIndex, tokens, 2);
         }
 
         return index;
@@ -339,7 +340,7 @@ public class Productions {
                 continue;
             } else {
                 errorMessage += "\n\n" + "Error: Syntax Error on Line " + symbolTable.getSymbolTable().get(index).getLineNumber() + "\n"
-                                            + "Abstract Methods Do Not Specify A Body";
+                                            + "Expected Declaration, Initializatoin, Object Call";
             }
         }
 
@@ -450,13 +451,13 @@ public class Productions {
                 continue;
             }
 
-            index = isStatementProduction(index, endIndex, tokens);
+            index = isStatementProduction(index, endIndex, tokens, 4);
         }
 
         return index;
     }
 
-    public int isStatementProduction(int index, int endIndex, String tokens)  {
+    public int isStatementProduction(int index, int endIndex, String tokens, int type)  {
         if (tokens.matches(INNER_CLASS_HEADER)) {
             // class body
             return isClassBodyProduction(endIndex);
@@ -470,7 +471,21 @@ public class Productions {
             // right-hand side
             return isExpressionProduction(endIndex);
         } else {
-            errorMessage += "\n\n" + "Error: Syntax Error on Line " + symbolTable.getSymbolTable().get(index).getLineNumber();
+            errorMessage += "\n\n" + "Error: Syntax Error on Line " + symbolTable.getSymbolTable().get(index).getLineNumber() + "\n";
+            switch (type) {
+                case 1:
+                    errorMessage += "Invalid Class Statement";
+                    break;
+                case 2:
+                    errorMessage += "Invalid Abstract Class Statement";
+                    break;
+                case 3:
+                    errorMessage += "Invalid Interface Statement";
+                    break;
+                case 4:
+                    errorMessage += "Invalid Method Statement";
+                    break;
+            }
         }
         return endIndex;
     }

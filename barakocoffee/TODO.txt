@@ -10,6 +10,8 @@
 6. Abstract class (x)
 7. inheritance (x)
 8. print & scan (x)
+9. Error Messages
+	adapt concept from: https://www.jdoodle.com/online-java-compiler/
 
 Others:
 1. proper usage of continue and break (x)
