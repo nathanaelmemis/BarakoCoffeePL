@@ -1,5 +1,5 @@
 1. Expressions of strings and boolean (x)
-2. control structures 
+2. control structures (x)
 	for loop (x)
 	if, else if, else (x)
 	while, do while (x)
@@ -10,8 +10,7 @@
 6. Abstract class (x)
 7. inheritance (x)
 8. print & scan (x)
-9. Error Messages
-	adapt concept from: https://www.jdoodle.com/online-java-compiler/
+9. Error Messages (x)
 
 Others:
 1. proper usage of continue and break (x)
