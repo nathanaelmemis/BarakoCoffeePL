@@ -110,7 +110,7 @@ public class BarakoCoffee {
         }
 
         symbolTable = lexer.scan(args[0]);
-        //symbolTable.printSymbolTable(args[1], true);
+        symbolTable.printSymbolTable(args[1], true);
         if (parser.isValidSyntax(parser.translate(symbolTable))) {
             System.out.println("Compilation successful!");
         }
@@ -137,7 +137,7 @@ public class BarakoCoffee {
         }
 
         symbolTable = lexer.scan(input);
-        //symbolTable.printSymbolTable(output, true);
+        symbolTable.printSymbolTable(output, true);
         if (parser.isValidSyntax(parser.translate(symbolTable))) {
             System.out.println("Compilation successful!");
         }
